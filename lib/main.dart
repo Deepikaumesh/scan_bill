@@ -2,6 +2,7 @@ import 'package:ecommerce_scan_andbill_app/scanner_app/Scanner_main_way.dart';
 import 'package:flutter/material.dart';
 
 const SAVE_KEY_NAME = "UserLoogedIn";
+final subTotal = 0;
 
 void main() {
   runApp(const MyApp());

@@ -197,6 +197,7 @@ class _Customer_LoginState extends State<Customer_Login> {
     var data = json.decode(response.body);
     if (data.toString() == "Success") {
       // await  SessionManager().set('token', user.text);
+      print(response);
 
       final snackBar = SnackBar(
         content: Text('Login Successfull'),

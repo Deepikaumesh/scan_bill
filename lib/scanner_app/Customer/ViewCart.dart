@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import 'Customer_Data_DetailPage.dart';
+import 'Customer_Update_Productqty.dart';
+
 //Creating a class user to store the data;
 class User {
   final String id;
@@ -13,6 +16,7 @@ class User {
   final String productprice;
   final String productqty;
   final String image;
+  final String stock;
 
   User({
     required this.id,
@@ -21,6 +25,7 @@ class User {
     required this.productprice,
     required this.productqty,
     required this.image,
+    required this.stock,
   });
 }
 
@@ -36,7 +41,7 @@ class _ViewcartState extends State<Viewcart> {
   Future<List<User>> getRequest() async {
     //replace your restFull API here.
     String url =
-        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/Cart_Display.php";
+        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php";
 
     final response = await http.get(Uri.parse(url));
 
@@ -52,6 +57,7 @@ class _ViewcartState extends State<Viewcart> {
         productprice: singleUser["productprice"].toString(),
         productqty: singleUser["productqty"].toString(),
         image: singleUser["image"].toString(),
+        stock: singleUser["stock"].toString(),
       );
 
       //Adding user to the list.
@@ -98,91 +104,174 @@ class _ViewcartState extends State<Viewcart> {
                 ),
               );
             } else {
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (ctx, index) {
-                    return Column(
-                      children: [
-                        Card(
-                            shadowColor: Colors.red,
-                            elevation: 8,
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Container(
-                              // color: Colors.red,
-                              height: 130,
-                              width: 400,
-                              padding: EdgeInsets.fromLTRB(10, 15, 50, 15),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      snapshot.data[index].image,
-                                      height: 100,
-                                      width: 100.0,
-                                      fit: BoxFit.cover,
-                                    ),
+              List<User> _user = snapshot.data;
+              return SingleChildScrollView(
+                child: Column(children: [
+                  ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (ctx, index) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Card(
+                                  shadowColor: Colors.red,
+                                  elevation: 8,
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  Spacer(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Name : " +
-                                            snapshot.data[index].productname,
-                                      ),
-                                      Text(
-                                        "Price : " +
-                                            snapshot.data[index].productprice,
-                                      ),
-                                      Text(
-                                        "Qty : " +
-                                            snapshot.data[index].productqty,
-                                      ),
-                                      //  Spacer(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Remove",
-                                            style: GoogleFonts.aBeeZee(
-                                                color: Colors.red.shade900),
+                                  child: Container(
+                                    // color: Colors.red,
+                                    height:
+                                        MediaQuery.of(context).size.height / 5,
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.fromLTRB(10, 15, 50, 15),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            snapshot.data[index].image,
+                                            height: 100,
+                                            width: 100.0,
+                                            fit: BoxFit.cover,
                                           ),
-                                          IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  delrecord(
-                                                      snapshot.data[index].id);
-                                                });
-                                              },
-                                              icon: Icon(Icons.clear,
-                                                  size: 20,
-                                                  color: Colors.red.shade900)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 20, bottom: 20, left: 20),
-                                      child: IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.arrow_forward_ios)))
-                                ],
+                                        ),
+                                        Spacer(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Name : " +
+                                                  snapshot
+                                                      .data[index].productname,
+                                            ),
+                                            Text(
+                                              "Price : " +
+                                                  snapshot
+                                                      .data[index].productprice,
+                                            ),
+
+                                            Text(
+                                              "Product Qty : " +
+                                                  snapshot.data[index].productqty,
+                                            ),
+                                            // Text(
+                                            //   "stock : " +
+                                            //       snapshot.data[index].stock,
+                                            // ),
+
+                                            Text(
+                                              "Sub Total : " +
+                                                  ProductCalculations
+                                                      .getTotalRateFromString(
+                                                          productPrice: snapshot
+                                                              .data[index]
+                                                              .productprice,
+                                                          Quantity: snapshot
+                                                              .data[index]
+                                                              .productqty),
+                                            ),
+
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Remove",
+                                                  style: GoogleFonts.aBeeZee(
+                                                      color: Colors.red.shade900),
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
+                                                      setState(() {
+                                                        delrecord(snapshot
+                                                            .data[index].id);
+                                                      });
+                                                    },
+                                                    icon: Icon(Icons.clear,
+                                                        size: 20,
+                                                        color:
+                                                            Colors.red.shade900)),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 20, bottom: 20, left: 20),
+                                            child: IconButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Customer_Data_DetailPage(
+                                                                  userdata:
+                                                                      snapshot.data[
+                                                                          index]))
+                                                      //     Update_Product_Qty(
+                                                      //   p0: snapshot.data[index].productid,
+                                                      //   p1:snapshot.data[index].productname,
+                                                      //   p2:snapshot.data[index].productprice,
+                                                      //   p3: snapshot.data[index].productqty,
+                                                      //   p4: snapshot.data[index].stock,
+                                                      //   p5: snapshot.data[index].image,
+                                                      //
+                                                      //
+                                                      // ))
+                                                      );
+                                                },
+                                                icon: Icon(
+                                                    Icons.arrow_forward_ios)))
+                                      ],
+                                    ),
+                                  )),
+                              SizedBox(
+                                height: 20,
                               ),
-                            )),
-                        SizedBox(
-                          height: 20,
+                            ],
+                          ),
+                        );
+                      }),
+                  // BottomAppBar(
+                  //   child: Text("hello"),
+                  // ),
+
+
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text("Total", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
+
+                            Text(
+                              "\$${returnTotalAmount(_user)}",
+                              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                            ),
+
+                          ],
                         ),
-                      ],
-                    );
-                  });
+                      )),
+                  // Align(
+                  //   alignment: Alignment.bottomCenter,
+                  //   child: Container(
+                  //     child: Text(
+                  //       "Grand Total :" + ProductCalculations.getGrandTotalFromString(productPrice: ''),
+                  //     ),
+                  //   ),
+                  // ),
+                ]),
+              );
             }
           },
         ),
@@ -206,5 +295,29 @@ class _ViewcartState extends State<Viewcart> {
     } else {
       print("some issue");
     }
+  }
+
+
+  String returnTotalAmount(List<User> _user){
+    double totalAmount = 0.0;
+    for (int i = 0; i < _user.length; i++) {
+      totalAmount = totalAmount + (double.parse(_user[i].productprice)*double.parse(_user[i].productqty));
+    }
+    return totalAmount.toString();
+  }
+
+}
+
+class ProductCalculations {
+  static String getTotalRateFromString(
+      {required String productPrice, required String Quantity}) {
+    String rate = "";
+    double _Quantity = double.parse(Quantity);
+    double _productPrice = double.parse(productPrice);
+
+    double totalAmount = _Quantity * _productPrice;
+    rate = totalAmount.toInt().ceil().toString();
+
+    return rate;
   }
 }

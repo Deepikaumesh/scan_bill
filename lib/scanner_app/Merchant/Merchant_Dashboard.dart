@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Merchant_Login.dart';
 import 'Merchant_Product_Registration.dart';
+import 'Merchant_View_Product_Stock.dart';
 
 class Merchant_Dashboard extends StatefulWidget {
   @override
@@ -64,6 +65,26 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
                               Merchant_Product_Registration()));
                 },
                 child: Text('Product Registration'),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 70, vertical: 70),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  backgroundColor: Colors.red.shade200,
+                  padding:
+                  EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Merchant_View_Product_stock()));
+                },
+                child: Text('View Product Stock'),
               ),
             ),
           ],

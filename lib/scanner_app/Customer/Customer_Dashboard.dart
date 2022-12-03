@@ -9,6 +9,8 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Update_Test1/update_test_post.dart';
+import '../../Update_Test1/update_test_view.dart';
 import 'Customer_Login.dart';
 import 'ViewCart.dart';
 
@@ -152,6 +154,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
               SizedBox(
                 height: 10,
               ),
+
               Text(
                 status ? message : message,
                 style: GoogleFonts.lato(
@@ -183,6 +186,33 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                       onPressed: () {},
                       icon: Icon(
                         Icons.shopping_cart_outlined,
+                        color: Colors.red.shade900,
+                      )),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Data_Post_update_test()));
+                      },
+                      icon: Icon(
+                        Icons.airplanemode_on_outlined,
+                        color: Colors.red.shade900,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => update_test_view()));
+                      },
+                      icon: Icon(
+                        Icons.arrow_downward,
                         color: Colors.red.shade900,
                       )),
                 ],

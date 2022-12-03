@@ -10,7 +10,7 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 200, horizontal: 30),
+            padding: EdgeInsets.symmetric(vertical: 200, horizontal: 60),
             child: Container(
               height: 300,
               width: 300,

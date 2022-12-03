@@ -12,6 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Merchant_Login.dart';
 
 class Merchant_Product_Registration extends StatefulWidget {
+
+
   @override
   _Merchant_Product_RegistrationState createState() =>
       _Merchant_Product_RegistrationState();
@@ -24,8 +26,9 @@ class _Merchant_Product_RegistrationState
   final picker = ImagePicker();
   TextEditingController Productname = TextEditingController();
   TextEditingController productprice = TextEditingController();
-  TextEditingController productqty = TextEditingController();
+  TextEditingController productqty = TextEditingController(text: '1');
   TextEditingController qr_controller = TextEditingController();
+  TextEditingController stock = TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   void scanQRCode() async {
@@ -94,6 +97,7 @@ class _Merchant_Product_RegistrationState
     request.fields['productname'] = Productname.text;
     request.fields['productprice'] = productprice.text;
     request.fields['productqty'] = productqty.text;
+    request.fields['stock'] = stock.text;
     var pic = await http.MultipartFile.fromPath("image", _image.path);
     request.files.add(pic);
     var response = await request.send();
@@ -105,6 +109,7 @@ class _Merchant_Product_RegistrationState
       productprice.clear();
       productqty.clear();
       Productname.clear();
+      stock.clear();
 
       final snackBar = await SnackBar(
         content: const Text('Product Added Successfully!'),
@@ -198,6 +203,7 @@ class _Merchant_Product_RegistrationState
                 ),
                 child: TextFormField(
                   controller: Productname,
+                  keyboardType: TextInputType.text,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -223,6 +229,7 @@ class _Merchant_Product_RegistrationState
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 child: TextFormField(
                   controller: productprice,
+                  keyboardType: TextInputType.number,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -250,6 +257,7 @@ class _Merchant_Product_RegistrationState
                 ),
                 child: TextFormField(
                   controller: productqty,
+                  keyboardType: TextInputType.number,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -264,7 +272,34 @@ class _Merchant_Product_RegistrationState
                           color: Colors.black,
                         ),
                       ),
-                      hintText: "Please enter product qty",
+                      label: Text("Product Quantity"),
+                      hintText: "product qty",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                child: TextFormField(
+                  controller: stock,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      hintText: "Please stock",
                       hintStyle: TextStyle(color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
