@@ -153,8 +153,8 @@
 //
 import 'dart:convert';
 
+import 'package:ecommerce_scan_andbill_app/Reserved_Files/Update_Test1/update_test_detailpage.dart';
 import 'package:ecommerce_scan_andbill_app/scanner_app/Customer/Customer_Dashboard.dart';
-import 'package:ecommerce_scan_andbill_app/Update_Test1/update_test_detailpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';

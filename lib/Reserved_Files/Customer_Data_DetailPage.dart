@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../Customer/ViewCart.dart';
+import '../scanner_app/Customer/ViewCart.dart';
 import 'Custome_Data_Edit.dart';
 
 

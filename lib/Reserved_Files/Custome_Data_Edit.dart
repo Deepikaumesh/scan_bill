@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../Customer/ViewCart.dart';
+import '../scanner_app/Customer/ViewCart.dart';
 
 
 
@@ -25,6 +25,15 @@ class _EditState extends State<Edit> {
 
 
   // Http post request
+
+
+
+
+
+
+
+
+
   Future editStudent() async {
     return await http.post(Uri.parse(
       "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Update_productqty.php",),
