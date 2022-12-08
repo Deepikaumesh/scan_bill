@@ -13,10 +13,11 @@ class Merchant_Dashboard extends StatefulWidget {
 }
 
 class _Merchant_DashboardState extends State<Merchant_Dashboard> {
-  signout(BuildContext ctx) async //using navigator so we need context
+
+  Merchant_Signout(BuildContext ctx) async //using navigator so we need context
   {
-    final _sharedPrefs = await SharedPreferences.getInstance();
-    await _sharedPrefs.clear();
+    final _MerchanntsharedPrefs = await SharedPreferences.getInstance();
+    await _MerchanntsharedPrefs.clear();
     //push new page and remove all other pages
 
     Navigator.pushAndRemoveUntil(
@@ -46,7 +47,7 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
         actions: [
           IconButton(
               onPressed: () {
-                signout(context);
+                Merchant_Signout(context);
               },
               icon: Icon(Icons.exit_to_app))
         ],

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecommerce_scan_andbill_app/Reserved_Files/view_crt.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
@@ -59,7 +60,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
           actions: [
             IconButton(
                 onPressed: () {
-                  signout(context);
+                  Customer_Signout(context);
                 },
                 icon: Icon(Icons.exit_to_app))
           ],
@@ -258,10 +259,10 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
     }
   }
 
-  signout(BuildContext ctx) async //using navigator so we need context
+  Customer_Signout(BuildContext ctx) async //using navigator so we need context
   {
-    final _sharedPrefs = await SharedPreferences.getInstance();
-    await _sharedPrefs.clear();
+    final _CustomersharedPrefs = await SharedPreferences.getInstance();
+    await _CustomersharedPrefs.clear();
     //push new page and remove all other pages
 
     Navigator.pushAndRemoveUntil(

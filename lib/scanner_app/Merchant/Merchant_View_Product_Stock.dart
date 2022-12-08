@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:ecommerce_scan_andbill_app/scanner_app/Merchant/Merchant_Dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,6 +75,11 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));
+              },
+              icon: Icon(Icons.arrow_back)),
         backgroundColor: Colors.red.shade200,
         centerTitle: true,
         title: Text(
@@ -111,16 +117,6 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
               return ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (ctx, index) {
-
-
-                 //   var items = snapshot.data as List<User>;
-                    // print( items.map((e) => int.parse(e.product*e.productprice))
-                    // print(items.map((e) =>double.parse(e.productqty + 3)));
-
-
-
-
-
                     return Column(
                       children: [
                         Card(
@@ -200,6 +196,30 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                                                   delrecord(
                                                       snapshot.data[index].id);
                                                 });
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (_) {
+                                                      return AlertDialog(
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(16),
+                                                        ),
+                                                        title: Text("Delete Product!"),
+                                                        content: Text(
+                                                            "Are you sure want to delete the Product from stock?"),
+                                                        actions: [
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Merchant_View_Product_stock()));
+                                                              },
+                                                              child: Text("ok")),
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                              child: Text("cancel")),
+                                                        ],
+                                                      );
+                                                    });
                                               },
                                               icon: Icon(Icons.clear,
                                                   size: 20,

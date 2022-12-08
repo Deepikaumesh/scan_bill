@@ -18,7 +18,7 @@ class Customer_Splashscreen extends StatefulWidget {
 
 class _Customer_SplashscreenState extends State<Customer_Splashscreen> {
   void initState() {
-    checkUserLoogedIn();
+    checkCustomerLogedIn();
     super.initState();
   }
 
@@ -55,18 +55,18 @@ class _Customer_SplashscreenState extends State<Customer_Splashscreen> {
       ),
     );
   }
-  Future gotiLogin() async {
+  Future gotoLogin_Customer() async {
     await Future.delayed(Duration(seconds: 1));
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Customer_Login()));
   }
 
 
-  Future<void> checkUserLoogedIn() async{
+  Future<void> checkCustomerLogedIn() async{
     final _sharedPrefs =await SharedPreferences.getInstance();
-    print(SAVE_KEY_NAME);
-    final _userLoggedIn=_sharedPrefs.getBool(SAVE_KEY_NAME);
-    if(_userLoggedIn == null || _userLoggedIn == false){
-      gotiLogin();
+    print(Customer_Key);
+    final _customerLoggedIn=_sharedPrefs.getBool(Customer_Key);
+    if(_customerLoggedIn == null || _customerLoggedIn == false){
+      gotoLogin_Customer();
     }
     else{
       Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard()));

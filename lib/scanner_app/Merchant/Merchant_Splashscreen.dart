@@ -19,7 +19,7 @@ class Merchant_Splashscreen extends StatefulWidget {
 
 class _Merchant_SplashscreenState extends State<Merchant_Splashscreen> {
   void initState() {
-    checkUserLoogedIn();
+    checkMerchantLoogedIn();
     super.initState();
   }
 
@@ -68,18 +68,18 @@ class _Merchant_SplashscreenState extends State<Merchant_Splashscreen> {
       ),
     );
   }
-  Future gotiLogin() async {
+  Future Merchant_gotoLogin() async {
     await Future.delayed(Duration(seconds: 1));
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Merchant_Login()));
   }
 
 
-  Future<void> checkUserLoogedIn() async{
-    final _sharedPrefs =await SharedPreferences.getInstance();
-    print(SAVE_KEY_NAME);
-    final _userLoggedIn=_sharedPrefs.getBool(SAVE_KEY_NAME);
-    if(_userLoggedIn == null || _userLoggedIn == false){
-      gotiLogin();
+  Future<void> checkMerchantLoogedIn() async{
+    final _MerchanrsharedPrefs =await SharedPreferences.getInstance();
+    print(Merchant_Key);
+    final _merchantLoggedIn=_MerchanrsharedPrefs.getBool(Merchant_Key);
+    if(_merchantLoggedIn == null || _merchantLoggedIn == false){
+      Merchant_gotoLogin();
     }
     else{
       Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));

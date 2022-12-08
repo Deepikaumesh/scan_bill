@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:ecommerce_scan_andbill_app/scanner_app/Customer/Customer_Dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,6 +70,11 @@ class _ViewcartState extends State<Viewcart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard()));
+            },
+            icon: Icon(Icons.arrow_back)),
         backgroundColor: Colors.red.shade200,
         centerTitle: true,
         title: Text(
@@ -111,167 +117,158 @@ class _ViewcartState extends State<Viewcart> {
               );
             } else {
               List<User> _user = snapshot.data;
-              return SingleChildScrollView(
-                child: Column(children: [
-                  ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
+              return
+                Column(
+                  children: [
+                Flexible(
+                  child: ListView.builder(
+                   // scrollDirection: Axis.vertical,
+                     shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (ctx, index) {
-                        return SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Card(
-                                  shadowColor: Colors.red,
-                                  elevation: 8,
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Container(
-                                    // color: Colors.red,
-                                    height:
-                                        MediaQuery.of(context).size.height / 5,
-                                    width: MediaQuery.of(context).size.width,
-                                    padding:
-                                        EdgeInsets.fromLTRB(10, 15, 50, 15),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            snapshot.data[index].image,
-                                            height: 100,
-                                            width: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Name : " +
-                                                  snapshot
-                                                      .data[index].productname,
-                                            ),
-                                            Text(
-                                              "Price : " +
-                                                  snapshot
-                                                      .data[index].productprice,
-                                            ),
-
-                                            Text(
-                                              "Product Qty : " +
-                                                  snapshot
-                                                      .data[index].productqty,
-                                            ),
-                                            // Text(
-                                            //   "stock : " +
-                                            //       snapshot.data[index].stock,
-                                            // ),
-
-                                            Text(
-                                              "Sub Total : " +
-                                                  ProductCalculations
-                                                      .getTotalRateFromString(
-                                                          productPrice: snapshot
-                                                              .data[index]
-                                                              .productprice,
-                                                          Quantity: snapshot
-                                                              .data[index]
-                                                              .productqty),
-                                            ),
-
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "Remove",
-                                                  style: GoogleFonts.aBeeZee(
-                                                      color:
-                                                          Colors.red.shade900),
-                                                ),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
-                                                      setState(() {
-                                                        delrecord(snapshot
-                                                            .data[index].id);
-                                                      });
-                                                    },
-                                                    icon: Icon(Icons.clear,
-                                                        size: 20,
-                                                        color: Colors
-                                                            .red.shade900)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 20, bottom: 20, left: 20),
-                                            child: IconButton(
-                                                onPressed: () {
-                                                  showModalBottomSheet(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          Merchant_Update_Bottomsheet(
-                                                            data_user: snapshot
-                                                                .data[index],
-                                                          ));
-                                                },
-                                                icon: Icon(
-                                                    Icons.arrow_forward_ios)))
-                                      ],
-                                    ),
-                                  )),
-                              SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                  // BottomAppBar(
-                  //   child: Text("hello"),
-                  // ),
-
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        return
+                          Column(
                           children: [
-                            Text(
-                              "Total",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 20),
+                            Card(
+                                 shadowColor: Colors.red,
+                                elevation: 8,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                   borderRadius: BorderRadius.circular(8),
+                                 ),
+                                child: Container(
+                                  // color: Colors.red,
+                                  height:
+                                      MediaQuery.of(context).size.height / 5,
+                                  width: MediaQuery.of(context).size.width,
+                                  padding:
+                                      EdgeInsets.fromLTRB(10, 15, 50, 15),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          snapshot.data[index].image,
+                                          height: 100,
+                                          width: 100.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Name : " +
+                                                snapshot
+                                                    .data[index].productname,
+                                          ),
+                                          Text(
+                                            "Price : " +
+                                                snapshot
+                                                    .data[index].productprice,
+                                          ),
+
+                                          Text(
+                                            "Product Qty : " +
+                                                snapshot
+                                                    .data[index].productqty,
+                                          ),
+                                          Text(
+                                            "Sub Total : " +
+                                                ProductCalculations
+                                                    .getTotalRateFromString(
+                                                        productPrice: snapshot
+                                                            .data[index]
+                                                            .productprice,
+                                                        Quantity: snapshot
+                                                            .data[index]
+                                                            .productqty),
+                                          ),
+
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Remove",
+                                                style: GoogleFonts.aBeeZee(
+                                                    color:
+                                                        Colors.red.shade900),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
+                                                    setState(() {
+                                                      delrecord(snapshot
+                                                          .data[index].id);
+                                                    });
+                                                  },
+                                                  icon: Icon(Icons.clear,
+                                                      size: 20,
+                                                      color: Colors
+                                                          .red.shade900)),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 20, bottom: 20, left: 20),
+                                          child: IconButton(
+                                              onPressed: () {
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        Merchant_Update_Bottomsheet(
+                                                          data_user: snapshot
+                                                              .data[index],
+                                                        ));
+                                              },
+                                              icon: Icon(
+                                                  Icons.arrow_forward_ios)))
+                                    ],
+                                  ),
+                                ),
                             ),
-                            Text(
-                              "\$${returnTotalAmount(_user)}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 20),
+                            SizedBox(
+                              height: 20,
                             ),
                           ],
-                        ),
-                      )),
-                  // Align(
-                  //   alignment: Alignment.bottomCenter,
-                  //   child: Container(
-                  //     child: Text(
-                  //       "Grand Total :" + ProductCalculations.getGrandTotalFromString(productPrice: ''),
-                  //     ),
-                  //   ),
-                  // ),
-                ]),
-              );
+                        );
+                      }),
+                ),
+
+
+
+
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 50,
+                      color: Colors.pink.shade50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "Total",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 20),
+                          ),
+                          Text(
+                            "\$${returnTotalAmount(_user)}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    )),
+              ]);
             }
           },
         ),

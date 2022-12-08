@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
-import '../Customer/ViewCart.dart';
+import '../scanner_app/Customer/ViewCart.dart';
 
 class Update_Merchant extends StatefulWidget {
   final User use;

@@ -17,9 +17,9 @@ class Customer_Login extends StatefulWidget {
 }
 
 class _Customer_LoginState extends State<Customer_Login> {
-  TextEditingController user = TextEditingController();
-  TextEditingController pass = TextEditingController();
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  TextEditingController Cust_user = TextEditingController();
+  TextEditingController Cust_pass = TextEditingController();
+  final GlobalKey<FormState> Cust_formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,11 @@ class _Customer_LoginState extends State<Customer_Login> {
                     Container(
                       margin: EdgeInsets.only(left: 35, right: 35),
                       child: Form(
-                        key: _formkey,
+                        key: Cust_formkey,
                         child: Column(
                           children: [
                             TextFormField(
-                              controller: user,
+                              controller: Cust_user,
                               keyboardType: TextInputType.text,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -76,7 +76,7 @@ class _Customer_LoginState extends State<Customer_Login> {
                               height: 30,
                             ),
                             TextFormField(
-                              controller: pass,
+                              controller: Cust_pass,
                               keyboardType: TextInputType.text,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -119,12 +119,12 @@ class _Customer_LoginState extends State<Customer_Login> {
                                         setState(() {
                                           // login();
                                         });
-                                        login();
+                                        Cust_Login();
 
-                                        if (_formkey.currentState!.validate()) {
+                                        if (Cust_formkey.currentState!.validate()) {
                                           print("Successfully  logged");
-                                          user.clear();
-                                          pass.clear();
+                                          Cust_user.clear();
+                                          Cust_pass.clear();
                                         }
                                       }),
                                 ),
@@ -185,14 +185,14 @@ class _Customer_LoginState extends State<Customer_Login> {
     );
   }
 
-  Future login() async {
+  Future Cust_Login() async {
     var url =
         "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/login.php"; //intego wifi password
     //192.168.29.102:80
     //  var url ="https://anthracitic-pecks.000webhostapp.com/login.php";
     var response = await http.post(Uri.parse(url), body: {
-      "username": user.text,
-      "password": pass.text,
+      "username": Cust_user.text,
+      "password": Cust_pass.text,
     });
     var data = json.decode(response.body);
     if (data.toString() == "Success") {
@@ -213,14 +213,14 @@ class _Customer_LoginState extends State<Customer_Login> {
       // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      final _sharedPrefs = await SharedPreferences.getInstance();
-      await _sharedPrefs.setBool(SAVE_KEY_NAME, true);
+      final _CustomersharedPrefs = await SharedPreferences.getInstance();
+      await _CustomersharedPrefs.setBool(Customer_Key, true);
 
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Customer_Dashboard()));
       print("username:");
-      print(SAVE_KEY_NAME);
+      print(Customer_Key);
     } else {
       final snackBar = SnackBar(
         content: Text('Username and password invalid'),

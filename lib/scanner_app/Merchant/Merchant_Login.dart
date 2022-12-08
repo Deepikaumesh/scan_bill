@@ -18,9 +18,9 @@ class Merchant_Login extends StatefulWidget {
 }
 
 class _Merchant_LoginState extends State<Merchant_Login> {
-  TextEditingController user = TextEditingController();
-  TextEditingController pass = TextEditingController();
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  TextEditingController Merchant_user = TextEditingController();
+  TextEditingController Merchant_pass = TextEditingController();
+  final GlobalKey<FormState> Merchant_formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +44,21 @@ class _Merchant_LoginState extends State<Merchant_Login> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5),
+                    top: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(left: 35, right: 35),
                       child: Form(
-                        key: _formkey,
+                        key: Merchant_formkey,
                         child: Column(
                           children: [
                             TextFormField(
-                              controller: user,
+                              controller: Merchant_user,
                               keyboardType: TextInputType.text,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -77,7 +80,7 @@ class _Merchant_LoginState extends State<Merchant_Login> {
                               height: 30,
                             ),
                             TextFormField(
-                              controller: pass,
+                              controller: Merchant_pass,
                               keyboardType: TextInputType.text,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -118,13 +121,13 @@ class _Merchant_LoginState extends State<Merchant_Login> {
                                       ),
                                       onPressed: () {
                                         setState(() {
-                                          login();
+                                          Merchant_Login();
                                         });
 
-                                        if (_formkey.currentState!.validate()) {
+                                        if (Merchant_formkey.currentState!.validate()) {
                                           print("Successfully  logged");
-                                          user.clear();
-                                          pass.clear();
+                                          Merchant_user.clear();
+                                          Merchant_pass.clear();
                                         }
                                       }),
                                 ),
@@ -145,7 +148,7 @@ class _Merchant_LoginState extends State<Merchant_Login> {
                                     'Does not have an account?',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                        // decoration: TextDecoration.underline,
+                                      // decoration: TextDecoration.underline,
                                         color: Color(0xff4c505b),
                                         fontSize: 18),
                                   ),
@@ -184,55 +187,108 @@ class _Merchant_LoginState extends State<Merchant_Login> {
     );
   }
 
-  Future login() async {
-    var url =
-        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_login.php"; //intego wifi password
-    //  var url ="https://anthracitic-pecks.000webhostapp.com/login.php";
-    var response = await http.post(Uri.parse(url), body: {
-      "username": user.text,
-      "password": pass.text,
-    });
-    var data = json.decode(response.body);
-    if (data.toString() == "Success") {
-      // await  SessionManager().set('token', user.text);
+Future Merchant_Login() async {
+  var url =
+      "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_login.php"; //intego wifi password
+  //  var url ="https://anthracitic-pecks.000webhostapp.com/login.php";
+  var response = await http.post(Uri.parse(url), body: {
+    "username": Merchant_user.text,
+    "password": Merchant_pass.text,
+  });
+  var data = json.decode(response.body);
+  if (data.toString() == "Success") {
+    // await  SessionManager().set('token', user.text);
 
-      final snackBar = SnackBar(
-        content: Text('Login Successfull'),
-        duration: Duration(seconds: 1),
-        action: SnackBarAction(
-          label: 'Ok',
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));
-            // Some code to undo the change.
-          },
-        ),
-      );
+    final snackBar = SnackBar(
+      content: Text('Login Successfull'),
+      duration: Duration(seconds: 1),
+      action: SnackBarAction(
+        label: 'Ok',
+        onPressed: () {
+       //   Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));
+          // Some code to undo the change.
+        },
+      ),
+    );
 
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // Find the ScaffoldMessenger in the widget tree
+    // and use it to show a SnackBar.
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      final _sharedPrefs = await SharedPreferences.getInstance();
-      await _sharedPrefs.setBool(SAVE_KEY_NAME, true);
+    final _sharedPrefs = await SharedPreferences.getInstance();
+    await _sharedPrefs.setBool(Merchant_Key, true);
 
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => Merchant_Dashboard()));
-      print("username:");
-    } else {
-      final snackBar = SnackBar(
-        content: Text('Username and password invalid'),
-        action: SnackBarAction(
-          label: 'Ok',
-          onPressed: () {
-          //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));
-            // Some code to undo the change.
-          },
-        ),
-      );
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Merchant_Dashboard()));
+    print("username:");
+  } else {
+    final snackBar = SnackBar(
+      content: Text('Username and password invalid'),
+      action: SnackBarAction(
+        label: 'Ok',
+        onPressed: () {
+        //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));
+          // Some code to undo the change.
+        },
+      ),
+    );
 
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+    // Find the ScaffoldMessenger in the widget tree
+    // and use it to show a SnackBar.
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+}
+
+// Future Merchant_Login() async {
+//     var url =
+//         "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/login.php"; //intego wifi password
+//     //192.168.29.102:80
+//     //  var url ="https://anthracitic-pecks.000webhostapp.com/login.php";
+//     var response = await http.post(Uri.parse(url), body: {
+//       "username": Merchant_user.text,
+//       "password": Merchant_pass.text,
+//     });
+//     var data = json.decode(response.body);
+//     if (data.toString() == "Success") {
+//       // await  SessionManager().set('token', user.text);
+//       print(response);
+//
+//       final snackBar = SnackBar(
+//         content: Text('Login Successfull'),
+//         action: SnackBarAction(
+//           label: 'Undo',
+//           onPressed: () {
+//             // Some code to undo the change.
+//           },
+//         ),
+//       );
+//
+//       // Find the ScaffoldMessenger in the widget tree
+//       // and use it to show a SnackBar.
+//       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//
+//       final _sharedPrefs = await SharedPreferences.getInstance();
+//       await _sharedPrefs.setBool(Customer_Key, true);
+//
+//
+//       Navigator.push(
+//           context, MaterialPageRoute(builder: (context) => Customer_Dashboard()));
+//       print("username:");
+//       print(Customer_Key);
+//     } else {
+//       final snackBar = SnackBar(
+//         content: Text('Username and password invalid'),
+//         action: SnackBarAction(
+//           label: 'Undo',
+//           onPressed: () {
+//             // Some code to undo the change.
+//           },
+//         ),
+//       );
+//
+//       // Find the ScaffoldMessenger in the widget tree
+//       // and use it to show a SnackBar.
+//       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//     }
+//   }
 }
