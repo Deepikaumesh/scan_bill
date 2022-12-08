@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:ecommerce_scan_andbill_app/Reserved_Files/Send_Total.dart';
 import 'package:ecommerce_scan_andbill_app/scanner_app/Customer/Customer_Dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _ViewcartState extends State<Viewcart> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard()));
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back)),
         backgroundColor: Colors.red.shade200,
@@ -84,8 +85,10 @@ class _ViewcartState extends State<Viewcart> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.pink.shade500,
-        child: Container(
-          height: 50,
+        child: TextButton(
+           onPressed: () {
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>Total()));
+           }, child: Text("go"),
         )
 
       ),
