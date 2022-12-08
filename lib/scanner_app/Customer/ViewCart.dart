@@ -76,6 +76,13 @@ class _ViewcartState extends State<Viewcart> {
           style: GoogleFonts.prompt(fontSize: 22),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.pink.shade500,
+        child: Container(
+          height: 50,
+        )
+
+      ),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: FutureBuilder(
