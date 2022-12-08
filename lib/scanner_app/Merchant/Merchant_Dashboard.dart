@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Scanner_main_way.dart';
 import 'Merchant_Login.dart';
 import 'Merchant_Product_Registration.dart';
 import 'Merchant_View_Product_Stock.dart';
@@ -28,6 +29,12 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         automaticallyImplyLeading: false, //for hiding default back arrow
         backgroundColor: Colors.amber.shade300,
         title: Center(

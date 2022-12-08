@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'dart:ffi';
-import 'package:ecommerce_scan_andbill_app/scanner_app/Customer/Customer_Dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
-import '../Merchant/Update_Data_Meerchant.dart';
+import '../Merchant/Merchant_Update_With_BottomSheet.dart';
 
 //Creating a class user to store the data;
 class User {
@@ -70,9 +69,6 @@ class _ViewcartState extends State<Viewcart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard()));
-        }, icon: Icon(Icons.arrow_back),),
         backgroundColor: Colors.red.shade200,
         centerTitle: true,
         title: Text(
@@ -107,11 +103,7 @@ class _ViewcartState extends State<Viewcart> {
                 ),
               );
             } else {
-
-              //creating a local identifier of user data model
-               List<User> _user = snapshot.data;
-              final x =snapshot.data;
-
+              List<User> _user = snapshot.data;
               return SingleChildScrollView(
                 child: Column(children: [
                   ListView.builder(
@@ -129,125 +121,108 @@ class _ViewcartState extends State<Viewcart> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Container(
-                                      // color: Colors.red,
-                                      height:
-                                          MediaQuery.of(context).size.height / 5,
-                                      width: MediaQuery.of(context).size.width,
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 15, 50, 15),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              snapshot.data[index].image,
-                                              height: 100,
-                                              width: 100.0,
-                                              fit: BoxFit.cover,
+                                  child: Container(
+                                    // color: Colors.red,
+                                    height:
+                                        MediaQuery.of(context).size.height / 5,
+                                    width: MediaQuery.of(context).size.width,
+                                    padding:
+                                        EdgeInsets.fromLTRB(10, 15, 50, 15),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            snapshot.data[index].image,
+                                            height: 100,
+                                            width: 100.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Name : " +
+                                                  snapshot
+                                                      .data[index].productname,
                                             ),
-                                          ),
-                                          Spacer(),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name : " +
-                                                    snapshot
-                                                        .data[index].productname,
-                                              ),
-                                              Text(
-                                                "Price : " +
-                                                    snapshot
-                                                        .data[index].productprice,
-                                              ),
+                                            Text(
+                                              "Price : " +
+                                                  snapshot
+                                                      .data[index].productprice,
+                                            ),
 
-                                              Text(
-                                                "Product Qty : " +
-                                                    snapshot
-                                                        .data[index].productqty,
-                                              ),
-                                              // Text(
-                                              //   "stock : " +
-                                              //       snapshot.data[index].stock,
-                                              // ),
+                                            Text(
+                                              "Product Qty : " +
+                                                  snapshot
+                                                      .data[index].productqty,
+                                            ),
+                                            // Text(
+                                            //   "stock : " +
+                                            //       snapshot.data[index].stock,
+                                            // ),
 
-                                              Text(
-                                                "Sub Total : " +
-                                                    ProductCalculations
-                                                        .getTotalRateFromString(
-                                                            productPrice: snapshot
-                                                                .data[index]
-                                                                .productprice,
-                                                            Quantity: snapshot
-                                                                .data[index]
-                                                                .productqty),
-                                              ),
+                                            Text(
+                                              "Sub Total : " +
+                                                  ProductCalculations
+                                                      .getTotalRateFromString(
+                                                          productPrice: snapshot
+                                                              .data[index]
+                                                              .productprice,
+                                                          Quantity: snapshot
+                                                              .data[index]
+                                                              .productqty),
+                                            ),
 
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Remove",
-                                                    style: GoogleFonts.aBeeZee(
-                                                        color:
-                                                            Colors.red.shade900),
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
-                                                        setState(() {
-                                                          delrecord(snapshot
-                                                              .data[index].id);
-                                                        });
-                                                      },
-                                                      icon: Icon(Icons.clear,
-                                                          size: 20,
-                                                          color: Colors
-                                                              .red.shade900)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 20, bottom: 20, left: 20),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Update_Merchant(use:snapshot.data[index],)));
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             Customer_Data_DetailPage(userdata: snapshot.data[index]))
-                                                    //     //     Update_Product_Qty(
-                                                    //     //   p0: snapshot.data[index].productid,
-                                                    //     //   p1:snapshot.data[index].productname,
-                                                    //     //   p2:snapshot.data[index].productprice,
-                                                    //     //   p3: snapshot.data[index].productqty,
-                                                    //     //   p4: snapshot.data[index].stock,
-                                                    //     //   p5: snapshot.data[index].image,
-                                                    //     //
-                                                    //     //
-                                                    //     // ))
-                                                    //     );
-                                                  },
-                                                  icon: Icon(
-                                                      Icons.arrow_forward_ios))),
-                                  //
-                                  //         IconButton(onPressed: (){
-                                  // // Navigator.push(context, MaterialPageRoute(builder: (context)=>Update_Merchant(use:snapshot.data[index],)));
-                                  //         }, icon: Icon(Icons.arrow_forward)),
-                                        ],
-                                      ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Remove",
+                                                  style: GoogleFonts.aBeeZee(
+                                                      color:
+                                                          Colors.red.shade900),
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
+                                                      setState(() {
+                                                        delrecord(snapshot
+                                                            .data[index].id);
+                                                      });
+                                                    },
+                                                    icon: Icon(Icons.clear,
+                                                        size: 20,
+                                                        color: Colors
+                                                            .red.shade900)),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 20, bottom: 20, left: 20),
+                                            child: IconButton(
+                                                onPressed: () {
+                                                  showModalBottomSheet(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          Merchant_Update_Bottomsheet(
+                                                            data_user: snapshot
+                                                                .data[index],
+                                                          ));
+                                                },
+                                                icon: Icon(
+                                                    Icons.arrow_forward_ios)))
+                                      ],
                                     ),
                                   )),
                               SizedBox(
@@ -307,7 +282,7 @@ class _ViewcartState extends State<Viewcart> {
     if (resoponse["success"] == "true") {
       print("record deleted");
       // setState(() {
-      //getRequest();
+      getRequest();
       // });
 
     } else {

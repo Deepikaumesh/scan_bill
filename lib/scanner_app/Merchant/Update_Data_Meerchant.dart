@@ -54,7 +54,7 @@ class _Update_MerchantState extends State<Update_Merchant> {
           "productprice": pprice.text,
           "productqty": pqty.text,
           "stock": pstok.text,
-        });
+        });}
     //  final data = jsonDecode(response.body);
     //   if (response.statusCode == 200) {
     //     final snackBar = await SnackBar(
@@ -77,7 +77,7 @@ class _Update_MerchantState extends State<Update_Merchant> {
     //     print('Not updated');
     //   }
     //   setState(() {});
-  }
+
 
   @override
   void initState() {

@@ -125,7 +125,8 @@ class _Merchant_Product_RegistrationState
     } else {
       print('Image Not Uploded');
     }
-    setState(() {});
+    setState(() {
+    });
   }
 
   @override
@@ -374,11 +375,23 @@ class _Merchant_Product_RegistrationState
                   setState(() {});
                   uploadImage();
                 },
+
                 child: Text('Submit'),
               ),
               SizedBox(
                 height: 15,
               ),
+         //  ElevatedButton(onPressed: (){
+         // //Navigator.pushReplacementNamed(context, "'Merchant_Product_Registration'");
+         //  }, child: Text("refresh"))
+          //     ElevatedButton(onPressed: (){
+          // //Navigator.push(context, MaterialPageRoute(builder: (context)=> Merchant_Product_Registration()));
+          // //       Navigator.pushAndRemoveUntil(
+          // //         context,
+          // //         MaterialPageRoute(builder: (context) => Merchant_Product_Registration() ),
+          // //             (Route<dynamic> route) => false,
+          // //       );
+          //     }, child: Text("Refresh Page"))
             ],
           ),
         ),

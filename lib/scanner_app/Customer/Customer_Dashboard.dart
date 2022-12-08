@@ -8,8 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../Reserved_Files/Bottom_Sheet/bottom_sheet.dart';
 import '../../Reserved_Files/Update_Test1/update_test_post.dart';
 import '../../Reserved_Files/Update_Test1/update_test_view.dart';
+import '../Scanner_main_way.dart';
 import 'Customer_Login.dart';
 import 'ViewCart.dart';
 
@@ -41,9 +43,13 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: () {
-            Navigator.pop(context);
-          }, icon: Icon(Icons.arrow_back),),
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
           backgroundColor: Colors.amber.shade300,
           title: Center(
             child: Text(
@@ -195,28 +201,36 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Data_Post_update_test()));
-                      },
-                      icon: Icon(
-                        Icons.airplanemode_on_outlined,
-                        color: Colors.red.shade900,
-                      )),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => update_test_view()));
-                      },
-                      icon: Icon(
-                        Icons.arrow_downward,
-                        color: Colors.red.shade900,
-                      )),
+                  // IconButton(
+                  //     onPressed: () {
+                  //      showModalBottomSheet(
+                  //      //  enableDrag: false,//cannot drag close
+                  //        //isDismissible: false,// disable click anywhere to close
+                  //        shape: RoundedRectangleBorder(
+                  //          borderRadius: BorderRadius.vertical(
+                  //            top: Radius.circular(30),
+                  //          )
+                  //        ),
+                  //
+                  //        context: context,
+                  //          builder: (context)=>buildSheet(data_user:),
+                  //      );
+                  //     },
+                  //     icon: Icon(
+                  //       Icons.message,
+                  //       color: Colors.red.shade900,
+                  //     )),
+                  // IconButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) => update_test_view()));
+                  //     },
+                  //     icon: Icon(
+                  //       Icons.arrow_downward,
+                  //       color: Colors.red.shade900,
+                  //     )),
                 ],
               ),
             ],
@@ -287,4 +301,32 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
       });
     }
   }
+
+  // Widget buildSheet() {
+  //   return Column(
+  //     //mainAxisSize: MainAxisSize.min,
+  //     children: [
+  //       Container(
+  //         padding: EdgeInsets.all(10),
+  //
+  //       ),
+  //       Text("hello"),
+  //       Text("hello"),
+  //       Text("hello"),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //         children:[
+  //         ElevatedButton(onPressed: (){}, child: Text("submit")),
+  //         ElevatedButton(onPressed: (){
+  //           Navigator.pop(context);
+  //         }, child: Text("cancel")),
+  //   ],),
+  //
+  //     ],
+  //
+  //
+  //   );
+  // }
 }
+
+
