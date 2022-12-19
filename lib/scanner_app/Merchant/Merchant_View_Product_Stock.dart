@@ -128,7 +128,7 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                             ),
                             child: Container(
                               // color: Colors.red,
-                              height: 150,
+                              height: 170,
                               width: 400,
                               padding: EdgeInsets.fromLTRB(10, 15, 50, 15),
                               child: Row(
@@ -163,24 +163,21 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                                         "Price : " +
                                             snapshot.data[index].productprice,
                                       ),
+                                      // Text(
+                                      //   "Productstock : " +
+                                      //       snapshot.data[index].stock,
+                                      // ),
                                       Text(
                                         "Productstock : " +
-                                            snapshot.data[index].stock,
+                                            StockCalculations
+                                                .getTotalRateFromString(
+                                                stock: snapshot
+                                                    .data[index]
+                                                    .stock,
+                                                Quantity: snapshot
+                                                    .data[index]
+                                                    .productqty),
                                       ),
-                                      // Text(
-                                      //   "Qty : " +
-                                      //       snapshot.data[index].productqty,
-                                      // ),
-                                      // Text(
-                                      //   "SubTotal : " +
-                                      //       snapshot.data[index].productqty +  snapshot.data[index].productprice),
-
-
-
-
-                                      //     Text("Sub Total : "+ (snapshot.data[index].productprice * snapshot.data[index].productqty)),
-
-
                                       Row(
                                         // mainAxisAlignment:
                                         // MainAxisAlignment.spaceBetween,
@@ -268,3 +265,21 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
     }
   }
 }
+
+
+class StockCalculations {
+  static String getTotalRateFromString(
+      {required String stock, required String Quantity}) {
+    String rate = "";
+    double _Quantity = double.parse(Quantity);
+    double _stock = double.parse(stock);
+
+    double totalAmount = _stock - _Quantity;
+    rate = totalAmount.toInt().ceil().toString();
+
+    return rate;
+  }
+}
+
+
+

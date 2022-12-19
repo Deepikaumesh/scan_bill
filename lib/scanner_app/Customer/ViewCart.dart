@@ -312,6 +312,8 @@ class _ViewcartState extends State<Viewcart> {
     return totalAmount.toString();
   }
 
+
+
 }
 
 class ProductCalculations {
