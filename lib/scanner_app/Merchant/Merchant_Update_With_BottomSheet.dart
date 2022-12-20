@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import '../../scanner_app/Customer/ViewCart.dart';
 
 class Merchant_Update_Bottomsheet extends StatefulWidget {
+
   final User data_user;
 
   const Merchant_Update_Bottomsheet({required this.data_user});
@@ -19,6 +20,7 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
   TextEditingController pro_qty = TextEditingController();
   TextEditingController pro_stok = TextEditingController();
   TextEditingController image = TextEditingController();
+  TextEditingController product_qty = TextEditingController();
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -29,20 +31,25 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
     pro_qty = TextEditingController(text: widget.data_user.productqty);
     pro_stok = TextEditingController(text: widget.data_user.stock);
     image = TextEditingController(text: widget.data_user.image);
+    product_qty=TextEditingController(text: widget.data_user.product_qty);
   }
 
   submit() async {
+    print(widget.data_user.cid);
+    print(product_qty);
     final response = await http.post(
         Uri.parse(
-            "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Update_productqty.php"),
+           "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/Update_product_Qty.php"),
+          //"https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Update_productqty.php"),
         body: {
-          "id": widget.data_user.id.toString(),
-          "productid": pro_id.text,
-          "productname": pro_name.text,
-          "productprice": pro_price.text,
-          "productqty": pro_qty.text,
-          "stock": pro_stok.text,
-          "image": image.text,
+          "id": widget.data_user.cid.toString(),
+          // "productid": pro_id.text,
+          // "productname": pro_name.text,
+          // "productprice": pro_price.text,
+         // "productqty": pro_qty.text,
+          // "stock": pro_stok.text,
+          // "image": image.text,
+          "product_qty":product_qty.text,
         });
   }
 
@@ -84,13 +91,60 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
                   Text("Product Name:" + widget.data_user.productname),
                   SizedBox(height: 20,),
                   Text("Product Price:" + widget.data_user.productprice),
+                  // Row(
+                  //   children: [
+                  //     Text("Product Qty:"),
+                  //     SizedBox(
+                  //       width: 20,
+                  //       child: TextFormField(
+                  //         controller: pro_qty,
+                  //         textAlign: TextAlign.center,
+                  //         decoration: new InputDecoration(
+                  //           border: InputBorder.none,
+                  //           focusedBorder: InputBorder.none,
+                  //           enabledBorder: InputBorder.none,
+                  //           errorBorder: InputBorder.none,
+                  //           disabledBorder: InputBorder.none,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     InkWell(
+                  //       child: Icon(
+                  //         Icons.arrow_drop_up,
+                  //         size: 50,
+                  //       ),
+                  //       onTap: () {
+                  //         int currentValue = int.parse(pro_qty.text);
+                  //         setState(() {
+                  //           currentValue++;
+                  //           pro_qty.text = (currentValue).toString();
+                  //         });
+                  //       },
+                  //     ),
+                  //     InkWell(
+                  //       child: Icon(
+                  //         Icons.arrow_drop_down,
+                  //         size: 50.0,
+                  //       ),
+                  //       onTap: () {
+                  //         int currentValue = int.parse(pro_qty.text);
+                  //         setState(() {
+                  //           currentValue--;
+                  //           pro_qty.text =
+                  //               (currentValue > 0 ? currentValue : 1).toString();
+                  //         });
+                  //       },
+                  //     ),
+                  //
+                  //   ],
+                  // ),
                   Row(
                     children: [
-                      Text("Product Qty:"),
+                      Text("Product_Qty:"),
                       SizedBox(
                         width: 20,
                         child: TextFormField(
-                          controller: pro_qty,
+                          controller: product_qty,
                           textAlign: TextAlign.center,
                           decoration: new InputDecoration(
                             border: InputBorder.none,
@@ -107,10 +161,10 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
                           size: 50,
                         ),
                         onTap: () {
-                          int currentValue = int.parse(pro_qty.text);
+                          int currentValue = int.parse(product_qty.text);
                           setState(() {
                             currentValue++;
-                            pro_qty.text = (currentValue).toString();
+                            product_qty.text = (currentValue).toString();
                           });
                         },
                       ),
@@ -120,10 +174,10 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
                           size: 50.0,
                         ),
                         onTap: () {
-                          int currentValue = int.parse(pro_qty.text);
+                          int currentValue = int.parse(product_qty.text);
                           setState(() {
                             currentValue--;
-                            pro_qty.text =
+                            product_qty.text =
                                 (currentValue > 0 ? currentValue : 1).toString();
                           });
                         },

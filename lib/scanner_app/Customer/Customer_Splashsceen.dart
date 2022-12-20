@@ -65,9 +65,10 @@ class _Customer_SplashscreenState extends State<Customer_Splashscreen> {
 
   Future<void> checkCustomerLogedIn() async{
     final _sharedPrefs =await SharedPreferences.getInstance();
-    print(Customer_Key);
-    final _customerLoggedIn=_sharedPrefs.getBool(Customer_Key);
-    if(_customerLoggedIn == null || _customerLoggedIn == false){
+   // print("first key check "+Customer_Key);
+    final _userid=_sharedPrefs.getString("userid");
+
+    if(_userid == null){
       gotoLogin_Customer();
     }
     else{

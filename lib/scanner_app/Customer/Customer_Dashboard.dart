@@ -20,6 +20,9 @@ class Customer_Dashboard extends StatefulWidget {
 
 class _Customer_DashboardState extends State<Customer_Dashboard> {
   TextEditingController textcontroller = TextEditingController();
+  TextEditingController product_qty = TextEditingController(text: '1');
+  TextEditingController uid = TextEditingController();
+
 
   late bool status;
   late String message = "";
@@ -29,6 +32,8 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
   @override
   void initState() {
     textcontroller = TextEditingController();
+    product_qty = TextEditingController(text: '1');
+    uid = TextEditingController();
 
     status = false;
     message = "";
@@ -130,6 +135,56 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                       )),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40,vertical: 3),
+                child: TextFormField(
+                  controller: product_qty,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Qty",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40,vertical: 3),
+                child: TextFormField(
+                  controller: uid,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Uid",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+              ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -147,6 +202,10 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                         });
                         print("Successful");
                         textcontroller.clear();
+                        product_qty.clear();
+                        uid.clear();
+
+
                       },
                       child: Text("Add To Cart")),
                   IconButton(
@@ -276,6 +335,8 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
     //json maping user entered details
     Map mapeddate = {
       'productid': textcontroller.text,
+      'product_qty': product_qty.text,
+      'uid': uid.text,
     };
     //send  data using http post to our php code
     http.Response reponse = await http.post(Uri.parse(APIURL), body: mapeddate);
@@ -291,7 +352,16 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
         message = responseMessage;
       });
     } else {
+      for (var singleUser in data) {
+        print(singleUser["id"]);
+        final _CustomersharedPrefs_uid = await SharedPreferences.getInstance();
+        await _CustomersharedPrefs_uid.setString("userid", singleUser["id"]);
+      }
+
       textcontroller.clear();
+      product_qty.clear();
+      product_qty.clear();
+      uid.clear();
 
       setState(() {
         status = true;

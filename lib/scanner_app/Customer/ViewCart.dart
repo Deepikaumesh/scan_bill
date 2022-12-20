@@ -18,6 +18,8 @@ class User {
   final String image;
   final String stock;
   final String cid;
+  final String product_qty;
+
 
 
   User({
@@ -29,6 +31,7 @@ class User {
     required this.image,
     required this.stock,
     required this.cid,
+    required this.product_qty,
   });
 }
 
@@ -54,6 +57,7 @@ class _ViewcartState extends State<Viewcart> {
     List<User> users = [];
     for (var singleUser in responseData) {
       User user = User(
+        product_qty: singleUser["product_qty"].toString(),
         cid: singleUser["cartid"].toString(),
         id: singleUser["id"].toString(),
         productid: singleUser["productid"].toString(),
@@ -179,10 +183,15 @@ class _ViewcartState extends State<Viewcart> {
                                                     .data[index].productprice,
                                           ),
 
+                                          // Text(
+                                          //   "Product Qty : " +
+                                          //       snapshot
+                                          //           .data[index].productqty,
+                                          // ),
                                           Text(
                                             "Product Qty : " +
                                                 snapshot
-                                                    .data[index].productqty,
+                                                    .data[index].product_qty,
                                           ),
                                           Text(
                                             "Sub Total : " +
@@ -193,7 +202,7 @@ class _ViewcartState extends State<Viewcart> {
                                                             .productprice,
                                                         Quantity: snapshot
                                                             .data[index]
-                                                            .productqty),
+                                                            .product_qty),
                                           ),
 
                                           Row(
@@ -226,6 +235,7 @@ class _ViewcartState extends State<Viewcart> {
                                       Padding(
                                           padding: EdgeInsets.only(
                                               top: 20, bottom: 20, left: 20),
+
                                           child: IconButton(
                                               onPressed: () {
                                                 showModalBottomSheet(
