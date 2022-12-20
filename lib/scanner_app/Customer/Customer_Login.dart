@@ -206,9 +206,12 @@ class _Customer_LoginState extends State<Customer_Login> {
       for (var singleUser in data) {
         // await  SessionManager().set('token', user.text);
          print(singleUser["id"]);
+         final _CustomersharedPrefs = await SharedPreferences.getInstance();
+         // await _CustomersharedPrefs.setBool(Customer_Key, true);
+         await _CustomersharedPrefs.setString("userid", singleUser["id"]);
         // print(response);
-        Customer_Key=singleUser["id"];
-         print("key:"+Customer_Key);
+        //Customer_Key=singleUser["id"];
+         //print("key:"+Customer_Key);
       }
 
       final snackBar = SnackBar(
@@ -225,17 +228,18 @@ class _Customer_LoginState extends State<Customer_Login> {
       // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      final _CustomersharedPrefs = await SharedPreferences.getInstance();
-      await _CustomersharedPrefs.setBool(Customer_Key, true);
+      // final _CustomersharedPrefs = await SharedPreferences.getInstance();
+      // // await _CustomersharedPrefs.setBool(Customer_Key, true);
+      // await _CustomersharedPrefs.setInt("userid", data["id"]);
 
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Customer_Dashboard()));
       print("username:");
      // Customer_Key=data["id"];
-      print(data["id"]);
+      //print(data["id"]);
      // print(Customer_Key);
-      print(data);
+     // print(data);
 
 
     } else {
