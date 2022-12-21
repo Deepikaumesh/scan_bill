@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import '../Merchant/Merchant_Payment.dart';
 import '../Merchant/Merchant_Update_With_BottomSheet.dart';
 
 //Creating a class user to store the data;
@@ -14,7 +15,7 @@ class User {
   final String productid;
   final String productname;
   final String productprice;
-  final String productqty;
+  //final String productqty;
   final String image;
   final String stock;
   final String cid;
@@ -27,7 +28,7 @@ class User {
     required this.productid,
     required this.productname,
     required this.productprice,
-    required this.productqty,
+   // required this.productqty,
     required this.image,
     required this.stock,
     required this.cid,
@@ -63,7 +64,7 @@ class _ViewcartState extends State<Viewcart> {
         productid: singleUser["productid"].toString(),
         productname: singleUser["productname"].toString(),
         productprice: singleUser["productprice"].toString(),
-        productqty: singleUser["productqty"].toString(),
+       // productqty: singleUser["productqty"].toString(),
         image: singleUser["image"].toString(),
         stock: singleUser["stock"].toString(),
       );
@@ -94,199 +95,203 @@ class _ViewcartState extends State<Viewcart> {
         color: Colors.pink.shade500,
         child: TextButton(
            onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>Total()));
-           }, child: Text("go"),
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Payment_Page()));
+           }, child: Text("Buy",style: TextStyle(color: Colors.white),),
         )
 
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
-        child: FutureBuilder(
-          future: getRequest(),
-          builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return Container(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(
-                        color: Colors.red.shade900,
-                        strokeWidth: 5,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        "Data Loading Please wait",
-                        style: TextStyle(),
-                      ),
-                    ],
+        child: Column(
+          children:[ FutureBuilder(
+            future: getRequest(),
+            builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Container(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: Colors.red.shade900,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Data Loading Please wait",
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            } else {
-              List<User> _user = snapshot.data;
-              return
-                Column(
-                  children: [
-                Flexible(
-                  child: ListView.builder(
-                   // scrollDirection: Axis.vertical,
-                     shrinkWrap: true,
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (ctx, index) {
-                        return
-                          Column(
-                          children: [
-                            Card(
-                                 shadowColor: Colors.red,
-                                elevation: 8,
-                                clipBehavior: Clip.antiAlias,
-                                shape: RoundedRectangleBorder(
-                                   borderRadius: BorderRadius.circular(8),
-                                 ),
-                                child: Container(
-                                  // color: Colors.red,
-                                  height:
-                                      MediaQuery.of(context).size.height / 5,
-                                  width: MediaQuery.of(context).size.width,
-                                  padding:
-                                      EdgeInsets.fromLTRB(10, 15, 50, 15),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          snapshot.data[index].image,
-                                          height: 100,
-                                          width: 100.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Column(
+                );
+              } else {
+                List<User> _user = snapshot.data;
+                return
+                  Flexible(
+                    child: Column(
+                      children: [
+                       // Text("hai"),
+                    Flexible(
+                      child: ListView.builder(
+                       // scrollDirection: Axis.vertical,
+                         shrinkWrap: true,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (ctx, index) {
+                            return
+                              Column(
+                              children: [
+                                Card(
+                                     shadowColor: Colors.red,
+                                    elevation: 8,
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: RoundedRectangleBorder(
+                                       borderRadius: BorderRadius.circular(8),
+                                     ),
+                                    child: Container(
+                                      // color: Colors.red,
+                                      height:
+                                          MediaQuery.of(context).size.height / 5,
+                                      width: MediaQuery.of(context).size.width,
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 15, 50, 15),
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            "Name : " +
-                                                snapshot
-                                                    .data[index].productname,
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                              snapshot.data[index].image,
+                                              height: 100,
+                                              width: 100.0,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                          Text(
-                                            "Price : " +
-                                                snapshot
-                                                    .data[index].productprice,
-                                          ),
-
-                                          // Text(
-                                          //   "Product Qty : " +
-                                          //       snapshot
-                                          //           .data[index].productqty,
-                                          // ),
-                                          Text(
-                                            "Product Qty : " +
-                                                snapshot
-                                                    .data[index].product_qty,
-                                          ),
-                                          Text(
-                                            "Sub Total : " +
-                                                ProductCalculations
-                                                    .getTotalRateFromString(
-                                                        productPrice: snapshot
-                                                            .data[index]
-                                                            .productprice,
-                                                        Quantity: snapshot
-                                                            .data[index]
-                                                            .product_qty),
-                                          ),
-
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                          Spacer(),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Remove",
-                                                style: GoogleFonts.aBeeZee(
-                                                    color:
-                                                        Colors.red.shade900),
+                                                "Name : " +
+                                                    snapshot
+                                                        .data[index].productname,
                                               ),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
-                                                    setState(() {
-                                                      delrecord(snapshot
-                                                          .data[index].cid);
-                                                    });
-                                                  },
-                                                  icon: Icon(Icons.clear,
-                                                      size: 20,
-                                                      color: Colors
-                                                          .red.shade900)),
+                                              Text(
+                                                "Price : " +
+                                                    snapshot
+                                                        .data[index].productprice,
+                                              ),
+
+                                              // Text(
+                                              //   "Product Qty : " +
+                                              //       snapshot
+                                              //           .data[index].productqty,
+                                              // ),
+                                              Text(
+                                                "Product Qty : " +
+                                                    snapshot
+                                                        .data[index].product_qty,
+                                              ),
+                                              Text(
+                                                "Sub Total : " +
+                                                    ProductCalculations
+                                                        .getTotalRateFromString(
+                                                            productPrice: snapshot
+                                                                .data[index]
+                                                                .productprice,
+                                                            Quantity: snapshot
+                                                                .data[index]
+                                                                .product_qty),
+                                              ),
+
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "Remove",
+                                                    style: GoogleFonts.aBeeZee(
+                                                        color:
+                                                            Colors.red.shade900),
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
+                                                        setState(() {
+                                                          delrecord(snapshot
+                                                              .data[index].cid);
+                                                        });
+                                                      },
+                                                      icon: Icon(Icons.clear,
+                                                          size: 20,
+                                                          color: Colors
+                                                              .red.shade900)),
+                                                ],
+                                              ),
                                             ],
                                           ),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 20, bottom: 20, left: 20),
+
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    showModalBottomSheet(context: context, builder: (context) =>
+                                                            Merchant_Update_Bottomsheet(
+                                                              data_user: snapshot
+                                                                  .data[index],
+                                                            ));
+                                                  },
+                                                  icon: Icon(
+                                                      Icons.arrow_forward_ios)))
                                         ],
                                       ),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 20, bottom: 20, left: 20),
-
-                                          child: IconButton(
-                                              onPressed: () {
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        Merchant_Update_Bottomsheet(
-                                                          data_user: snapshot
-                                                              .data[index],
-                                                        ));
-                                              },
-                                              icon: Icon(
-                                                  Icons.arrow_forward_ios)))
-                                    ],
-                                  ),
+                                    ),
                                 ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        );
-                      }),
-                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
 
 
 
 
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 50,
-                      color: Colors.pink.shade50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            "Total",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 20),
+      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 50,
+                          color: Colors.pink.shade50,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                "Total",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700, fontSize: 20),
+                              ),
+                              Text(
+                                "\$${returnTotalAmount(_user)}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700, fontSize: 20),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "\$${returnTotalAmount(_user)}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 20),
-                          ),
-                        ],
-                      ),
-                    )),
-              ]);
-            }
-          },
+                        )),
+                ],),
+                  );
+              }
+            },
+          ),
+      ],
         ),
       ),
     );
@@ -317,7 +322,7 @@ class _ViewcartState extends State<Viewcart> {
     for (int i = 0; i < _user.length; i++) {
       totalAmount = totalAmount +
           (double.parse(_user[i].productprice) *
-              double.parse(_user[i].productqty));
+              double.parse(_user[i].product_qty));
     }
     return totalAmount.toString();
   }

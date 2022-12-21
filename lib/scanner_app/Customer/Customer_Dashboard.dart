@@ -235,9 +235,9 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>Get_Data()));
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Viewcart()));
+
+                       Navigator.push(context,
+                           MaterialPageRoute(builder: (context) => Viewcart()));
                     },
                     child: Text("View Cart"),
                     style: ElevatedButton.styleFrom(

@@ -17,7 +17,7 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
   TextEditingController pro_id = TextEditingController();
   TextEditingController pro_name = TextEditingController();
   TextEditingController pro_price = TextEditingController();
-  TextEditingController pro_qty = TextEditingController();
+ // TextEditingController pro_qty = TextEditingController();
   TextEditingController pro_stok = TextEditingController();
   TextEditingController image = TextEditingController();
   TextEditingController product_qty = TextEditingController();
@@ -28,7 +28,7 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
     pro_id = TextEditingController(text: widget.data_user.productid);
     pro_name = TextEditingController(text: widget.data_user.productname);
     pro_price = TextEditingController(text: widget.data_user.productprice);
-    pro_qty = TextEditingController(text: widget.data_user.productqty);
+   // pro_qty = TextEditingController(text: widget.data_user.productqty);
     pro_stok = TextEditingController(text: widget.data_user.stock);
     image = TextEditingController(text: widget.data_user.image);
     product_qty=TextEditingController(text: widget.data_user.product_qty);
@@ -222,8 +222,12 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
                                 //     context,
                                 //     MaterialPageRoute(
                                 //         builder: (context) => Viewcart()));
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Viewcart()));
-
+                               Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Viewcart()));
+                              //   Navigator.replace(
+                              //     context,
+                              //     oldRoute: MaterialPageRoute(builder: (context) =>Merchant_Update_Bottomsheet(data_user: widget.data_user)),
+                              //     newRoute: MaterialPageRoute(builder: (context) => Viewcart()),
+                              //   );
                               },
                               child: Text("ok")),
                           TextButton(
