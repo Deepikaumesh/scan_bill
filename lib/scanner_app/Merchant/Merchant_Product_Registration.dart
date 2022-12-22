@@ -26,7 +26,7 @@ class _Merchant_Product_RegistrationState
   final picker = ImagePicker();
   TextEditingController Productname = TextEditingController();
   TextEditingController productprice = TextEditingController();
-  TextEditingController productqty = TextEditingController(text: '1');
+  //TextEditingController productqty = TextEditingController(text: '1');
   TextEditingController qr_controller = TextEditingController();
   TextEditingController stock = TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -96,7 +96,7 @@ class _Merchant_Product_RegistrationState
     request.fields['productid'] = qr_controller.text;
     request.fields['productname'] = Productname.text;
     request.fields['productprice'] = productprice.text;
-    request.fields['productqty'] = productqty.text;
+  //  request.fields['productqty'] = productqty.text;
     request.fields['stock'] = stock.text;
     var pic = await http.MultipartFile.fromPath("image", _image.path);
     request.files.add(pic);
@@ -107,7 +107,7 @@ class _Merchant_Product_RegistrationState
       print('Image Uploded');
       qr_controller.clear();
       productprice.clear();
-      productqty.clear();
+    //  productqty.clear();
       Productname.clear();
       stock.clear();
 
@@ -252,37 +252,37 @@ class _Merchant_Product_RegistrationState
                       )),
                 ),
               ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: 40,
+              //   ),
+              //   child: TextFormField(
+              //     controller: productqty,
+              //     keyboardType: TextInputType.number,
+              //     style: TextStyle(color: Colors.black),
+              //     decoration: InputDecoration(
+              //         enabledBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide: BorderSide(
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         focusedBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide: BorderSide(
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         label: Text("Product Quantity"),
+              //         hintText: "product qty",
+              //         hintStyle: TextStyle(color: Colors.grey),
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //         )),
+              //   ),
+              // ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 40,
-                ),
-                child: TextFormField(
-                  controller: productqty,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                      label: Text("Product Quantity"),
-                      hintText: "product qty",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      )),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: stock,
                   keyboardType: TextInputType.number,

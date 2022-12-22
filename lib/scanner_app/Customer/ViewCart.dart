@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../Merchant/Merchant_Payment.dart';
 import '../Merchant/Merchant_Update_With_BottomSheet.dart';
@@ -96,7 +98,8 @@ class _ViewcartState extends State<Viewcart> {
         child: TextButton(
            onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Payment_Page()));
-           }, child: Text("Buy",style: TextStyle(color: Colors.white),),
+           }, child:
+        Text("Buy",style: TextStyle(color: Colors.white),),
         )
 
       ),
@@ -106,7 +109,7 @@ class _ViewcartState extends State<Viewcart> {
           children:[ FutureBuilder(
             future: getRequest(),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-              if (snapshot.data == null) {
+              if (snapshot.data == null || snapshot.data == false) {
                 return Container(
                   child: Center(
                     child: Column(
@@ -120,7 +123,7 @@ class _ViewcartState extends State<Viewcart> {
                           height: 30,
                         ),
                         Text(
-                          "Data Loading Please wait",
+                          "Loading...",
                           style: TextStyle(),
                         ),
                       ],
@@ -223,10 +226,42 @@ class _ViewcartState extends State<Viewcart> {
                                                   IconButton(
                                                       onPressed: () {
                                                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
-                                                        setState(() {
-                                                          delrecord(snapshot
-                                                              .data[index].cid);
-                                                        });
+                                                        // setState(() {
+                                                        //   delrecord(snapshot
+                                                        //       .data[index].cid);
+                                                        // });
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (_) {
+                                                              return AlertDialog(
+                                                                shape: RoundedRectangleBorder(
+                                                                  borderRadius: BorderRadius.circular(16),
+                                                                ),
+                                                                title: Text("Remove item",style: TextStyle(color: Colors.pink.shade500),),
+                                                                content: Text(
+                                                                    "Are You sure want to remove the product from cart"),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () {
+                                                                      setState(() {
+                                                                        delrecord(snapshot
+                                                                            .data[index].cid);
+                                                                      });
+                                                                      Navigator.pushReplacement(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) =>
+                                                                                  Viewcart()));
+                                                                    },
+                                                                    child: Text("ok",style: TextStyle(color: Colors.pink.shade500,)),),
+                                                                  TextButton(
+                                                                    onPressed: () {
+                                                                      Navigator.pop(context);
+                                                                    },
+                                                                    child: Text("cancel",style: TextStyle(color: Colors.pink.shade500)),),
+                                                                ],
+                                                              );
+                                                            });
                                                       },
                                                       icon: Icon(Icons.clear,
                                                           size: 20,
@@ -306,7 +341,8 @@ class _ViewcartState extends State<Viewcart> {
     });
     var resoponse = jsonDecode(res.body);
     if (resoponse["success"] == "true") {
-      print("record deleted");
+
+
       print(id);
       // setState(() {
       getRequest();

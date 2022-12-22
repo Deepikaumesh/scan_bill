@@ -186,8 +186,7 @@ class _Customer_LoginState extends State<Customer_Login> {
   }
 
   Future Cust_Login() async {
-    var url =
-        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/login.php"; //intego wifi password
+    var url ="https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/login.php"; //intego wifi password
     var response = await http.post(Uri.parse(url),
         headers: {
       'Accept':'application/json'
@@ -202,13 +201,14 @@ class _Customer_LoginState extends State<Customer_Login> {
     if (data!=null) {
       //var responseData = json.decode(response.body);
 
-      //Creating a list to store input data;
+
       for (var singleUser in data) {
         // await  SessionManager().set('token', user.text);
          print(singleUser["id"]);
          final _CustomersharedPrefs = await SharedPreferences.getInstance();
          // await _CustomersharedPrefs.setBool(Customer_Key, true);
          await _CustomersharedPrefs.setString("userid", singleUser["id"]);
+
         // print(response);
         //Customer_Key=singleUser["id"];
          //print("key:"+Customer_Key);

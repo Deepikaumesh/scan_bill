@@ -18,6 +18,7 @@ class Merchant_Splashscreen extends StatefulWidget {
 }
 
 class _Merchant_SplashscreenState extends State<Merchant_Splashscreen> {
+
   void initState() {
     checkMerchantLoogedIn();
     super.initState();

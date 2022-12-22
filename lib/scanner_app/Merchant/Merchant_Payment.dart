@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import '../../Reserved_Files/Carousel slider.dart';
 import '../Customer/ViewCart.dart';
 import '../Merchant/Merchant_Update_With_BottomSheet.dart';
+
 
 //Creating a class user to store the data;
 class User_Model {
@@ -15,13 +17,12 @@ class User_Model {
   final String productid;
   final String productname;
   final String productprice;
+
   //final String productqty;
   final String image;
   final String stock;
   final String cid;
   final String product_qty;
-
-
 
   User_Model({
     required this.id,
@@ -42,8 +43,6 @@ class Merchant_Payment_Page extends StatefulWidget {
 }
 
 class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
-
-
   //Applying get request.
   Future<List<User_Model>> getRequest() async {
     //replace your restFull API here.
@@ -94,9 +93,10 @@ class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
       bottomNavigationBar: BottomAppBar(
           //color: Colors.pink.shade500,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(onPressed: (){
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          TextButton(
+              onPressed: () {
                 showDialog(
                     context: context,
                     builder: (_) {
@@ -104,260 +104,309 @@ class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        title: Text("Cash Payment"),
+                        title: Text("Cash Payment",style: TextStyle(color: Colors.pink.shade500),),
                         content: Text(
-                            "Go to Bill Counter and Show Total Amount for Cash Payment"),
+                            "Go to bill counter and Show total amount for cash payment"),
                         actions: [
                           TextButton(
                               onPressed: () {
-                                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Merchant_Payment_Page()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Merchant_Payment_Page()));
                               },
-                              child: Text("ok")),
+                              child: Text("ok",style: TextStyle(color: Colors.pink.shade500,)),),
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text("cancel")),
+                              child: Text("cancel",style: TextStyle(color: Colors.pink.shade500)),),
                         ],
                       );
                     });
-
-              }, child: Text("cash")),
-              ElevatedButton(onPressed: (){}, child: Text("Online Payment"))
-            ],
-          )
-
-      ),
+              },
+              child: Text("Cash Payment",style: TextStyle(color: Colors.pink.shade500,fontSize: 22),),
+          ),
+          //VerticalDivider(width: 2,),
+          Container(
+            height: 40,
+            width: 1,
+            color: Colors.blueGrey,
+          ),
+          TextButton(onPressed: () {
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Online_Payment()));
+          }, child: Text("Online Payment",style: TextStyle(color: Colors.pink.shade500,fontSize: 22),))
+        ],
+      )),
       body: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          children:[ FutureBuilder(
-            future: getRequest(),
-            builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-              if (snapshot.data == null) {
-                return Container(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(
-                          color: Colors.red.shade900,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "Data Loading Please wait",
-                          style: TextStyle(),
-                        ),
-                      ],
+          children: [
+            FutureBuilder(
+              future: getRequest(),
+              builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                if (snapshot.data == null) {
+                  return Container(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(
+                            color: Colors.red.shade900,
+                            strokeWidth: 5,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            "Data Loading Please wait",
+                            style: TextStyle(),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                List<User_Model> _user = snapshot.data;
-                return
-                  Flexible(
+                  );
+                } else {
+                  List<User_Model> _user = snapshot.data;
+                  return Flexible(
                     child: Column(
                       children: [
-                        Text("Your Products:",style: TextStyle(color: Colors.blueGrey,fontSize: 18),),
-                        Divider(),
+                        SizedBox(height: 20,),
+                        Carousel_slider(),
+                        // Container(
+                        //   height: 200,
+                        //   width: 300,
+                        //   // color: Colors.red,
+                        //  child: Image.asset("assets/images/payment.jpg",),
+                        // ),
+                        SizedBox(height: 20,),
+                        Text(
+                          "Your Products:",
+                          style:
+                              TextStyle(color: Colors.blueGrey, fontSize: 18),
+                        ),
                         Flexible(
                           child: ListView.builder(
-                            // scrollDirection: Axis.vertical,
+                              // scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemCount: snapshot.data.length,
                               itemBuilder: (ctx, index) {
-                                return
-                                  Column(
-                                    children: [
-                                      ListTile(
-                                        leading:Container(
-                                          child: Image.network(snapshot.data[index].image,),
+                                return Column(
+                                  children: [
+                                    Divider(
+                                      color: Colors.blueGrey,
+                                      thickness: 0.5,
+                                    ),
+                                    ListTile(
+                                      leading: Container(
+                                        height: 50,
+                                        width: 50,
+                                        child: Image.network(
+                                          snapshot.data[index].image,
                                         ),
-                                        // ClipRRect(
-                                        //       borderRadius:
-                                        //       BorderRadius.circular(8.0),
-                                        //       child: Image.network(
-                                        //         snapshot.data[index].image,
-                                        //         height: 100,
-                                        //         width: 100.0,
-                                        //         fit: BoxFit.cover,
-                                        //       ),
-                                        //     ),
-                                        title: Text(
-                                              "Name : " +
-                                                  snapshot
-                                                      .data[index].productname,
-                                            ),
-                                        trailing: Text(
-                                                          "Sub Total : " +
-                                                              ProductCalculation
-                                                                  .getTotalRateFromString(
-                                                                  productPrice: snapshot
-                                                                      .data[index]
-                                                                      .productprice,
-                                                                  Quantity: snapshot
-                                                                      .data[index]
-                                                                      .product_qty),
-                                                        ),
-                                      )
-                                      // Card(
-                                      //   shadowColor: Colors.red,
-                                      //   elevation: 8,
-                                      //   clipBehavior: Clip.antiAlias,
-                                      //   shape: RoundedRectangleBorder(
-                                      //     borderRadius: BorderRadius.circular(8),
-                                      //   ),
-                                      //   child: Container(
-                                      //     // color: Colors.red,
-                                      //     height:
-                                      //     MediaQuery.of(context).size.height / 5,
-                                      //     width: MediaQuery.of(context).size.width,
-                                      //     padding:
-                                      //     EdgeInsets.fromLTRB(10, 15, 50, 15),
-                                      //     child: Row(
-                                      //       crossAxisAlignment:
-                                      //       CrossAxisAlignment.start,
-                                      //       children: [
-                                      //         ClipRRect(
-                                      //           borderRadius:
-                                      //           BorderRadius.circular(8.0),
-                                      //           child: Image.network(
-                                      //             snapshot.data[index].image,
-                                      //             height: 100,
-                                      //             width: 100.0,
-                                      //             fit: BoxFit.cover,
-                                      //           ),
-                                      //         ),
-                                      //         Spacer(),
-                                      //         Column(
-                                      //           crossAxisAlignment:
-                                      //           CrossAxisAlignment.start,
-                                      //           children: [
-                                      //             Text(
-                                      //               "Name : " +
-                                      //                   snapshot
-                                      //                       .data[index].productname,
-                                      //             ),
-                                      //             Text(
-                                      //               "Price : " +
-                                      //                   snapshot
-                                      //                       .data[index].productprice,
-                                      //             ),
-                                      //
-                                      //             // Text(
-                                      //             //   "Product Qty : " +
-                                      //             //       snapshot
-                                      //             //           .data[index].productqty,
-                                      //             // ),
-                                      //             Text(
-                                      //               "Product Qty : " +
-                                      //                   snapshot
-                                      //                       .data[index].product_qty,
-                                      //             ),
-                                      //             Text(
-                                      //               "Sub Total : " +
-                                      //                   ProductCalculations
-                                      //                       .getTotalRateFromString(
-                                      //                       productPrice: snapshot
-                                      //                           .data[index]
-                                      //                           .productprice,
-                                      //                       Quantity: snapshot
-                                      //                           .data[index]
-                                      //                           .product_qty),
-                                      //             ),
-                                      //
-                                      //             Row(
-                                      //               mainAxisAlignment:
-                                      //               MainAxisAlignment
-                                      //                   .spaceBetween,
-                                      //               children: [
-                                      //                 Text(
-                                      //                   "Remove",
-                                      //                   style: GoogleFonts.aBeeZee(
-                                      //                       color:
-                                      //                       Colors.red.shade900),
-                                      //                 ),
-                                      //                 IconButton(
-                                      //                     onPressed: () {
-                                      //                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
-                                      //                       setState(() {
-                                      //                         delrecord(snapshot
-                                      //                             .data[index].cid);
-                                      //                       });
-                                      //                     },
-                                      //                     icon: Icon(Icons.clear,
-                                      //                         size: 20,
-                                      //                         color: Colors
-                                      //                             .red.shade900)),
-                                      //               ],
-                                      //             ),
-                                      //           ],
-                                      //         ),
-                                      //         Padding(
-                                      //             padding: EdgeInsets.only(
-                                      //                 top: 20, bottom: 20, left: 20),
-                                      //
-                                      //             child: IconButton(
-                                      //                 onPressed: () {
-                                      //                   showModalBottomSheet(context: context, builder: (context) =>
-                                      //                       Merchant_Update_Bottomsheet(
-                                      //                         data_user: snapshot
-                                      //                             .data[index],
-                                      //                       ));
-                                      //                 },
-                                      //                 icon: Icon(
-                                      //                     Icons.arrow_forward_ios)))
-                                      //       ],
+                                      ),
+                                      // ClipRRect(
+                                      //       borderRadius:
+                                      //       BorderRadius.circular(8.0),
+                                      //       child: Image.network(
+                                      //         snapshot.data[index].image,
+                                      //         height: 100,
+                                      //         width: 100.0,
+                                      //         fit: BoxFit.cover,
+                                      //       ),
                                       //     ),
-                                      //   ),
+                                      title: Text(
+                                        "Name : " +
+                                            snapshot.data[index].productname,
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                Text(
+                                  "Sub Total : " +
+                                      ProductCalculation
+                                          .getTotalRateFromString(
+                                              productPrice: snapshot
+                                                  .data[index]
+                                                  .productprice,
+                                              Quantity: snapshot
+                                                  .data[index]
+                                                  .product_qty),
+                                ),
+                                          Text( "Product Qty : " +snapshot.data[index].product_qty),
+                                        ],
+                                      ),
+
+                                      // trailing: Text(
+                                      //   "Sub Total : " +
+                                      //       ProductCalculation
+                                      //           .getTotalRateFromString(
+                                      //               productPrice: snapshot
+                                      //                   .data[index]
+                                      //                   .productprice,
+                                      //               Quantity: snapshot
+                                      //                   .data[index]
+                                      //                   .product_qty),
                                       // ),
-                                      // SizedBox(
-                                      //   height: 20,
-                                      // ),
-                                    ],
-                                  );
+                                    )
+                                    // Card(
+                                    //   shadowColor: Colors.red,
+                                    //   elevation: 8,
+                                    //   clipBehavior: Clip.antiAlias,
+                                    //   shape: RoundedRectangleBorder(
+                                    //     borderRadius: BorderRadius.circular(8),
+                                    //   ),
+                                    //   child: Container(
+                                    //     // color: Colors.red,
+                                    //     height:
+                                    //     MediaQuery.of(context).size.height / 5,
+                                    //     width: MediaQuery.of(context).size.width,
+                                    //     padding:
+                                    //     EdgeInsets.fromLTRB(10, 15, 50, 15),
+                                    //     child: Row(
+                                    //       crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //       children: [
+                                    //         ClipRRect(
+                                    //           borderRadius:
+                                    //           BorderRadius.circular(8.0),
+                                    //           child: Image.network(
+                                    //             snapshot.data[index].image,
+                                    //             height: 100,
+                                    //             width: 100.0,
+                                    //             fit: BoxFit.cover,
+                                    //           ),
+                                    //         ),
+                                    //         Spacer(),
+                                    //         Column(
+                                    //           crossAxisAlignment:
+                                    //           CrossAxisAlignment.start,
+                                    //           children: [
+                                    //             Text(
+                                    //               "Name : " +
+                                    //                   snapshot
+                                    //                       .data[index].productname,
+                                    //             ),
+                                    //             Text(
+                                    //               "Price : " +
+                                    //                   snapshot
+                                    //                       .data[index].productprice,
+                                    //             ),
+                                    //
+                                    //             // Text(
+                                    //             //   "Product Qty : " +
+                                    //             //       snapshot
+                                    //             //           .data[index].productqty,
+                                    //             // ),
+                                    //             Text(
+                                    //               "Product Qty : " +
+                                    //                   snapshot
+                                    //                       .data[index].product_qty,
+                                    //             ),
+                                    //             Text(
+                                    //               "Sub Total : " +
+                                    //                   ProductCalculations
+                                    //                       .getTotalRateFromString(
+                                    //                       productPrice: snapshot
+                                    //                           .data[index]
+                                    //                           .productprice,
+                                    //                       Quantity: snapshot
+                                    //                           .data[index]
+                                    //                           .product_qty),
+                                    //             ),
+                                    //
+                                    //             Row(
+                                    //               mainAxisAlignment:
+                                    //               MainAxisAlignment
+                                    //                   .spaceBetween,
+                                    //               children: [
+                                    //                 Text(
+                                    //                   "Remove",
+                                    //                   style: GoogleFonts.aBeeZee(
+                                    //                       color:
+                                    //                       Colors.red.shade900),
+                                    //                 ),
+                                    //                 IconButton(
+                                    //                     onPressed: () {
+                                    //                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
+                                    //                       setState(() {
+                                    //                         delrecord(snapshot
+                                    //                             .data[index].cid);
+                                    //                       });
+                                    //                     },
+                                    //                     icon: Icon(Icons.clear,
+                                    //                         size: 20,
+                                    //                         color: Colors
+                                    //                             .red.shade900)),
+                                    //               ],
+                                    //             ),
+                                    //           ],
+                                    //         ),
+                                    //         Padding(
+                                    //             padding: EdgeInsets.only(
+                                    //                 top: 20, bottom: 20, left: 20),
+                                    //
+                                    //             child: IconButton(
+                                    //                 onPressed: () {
+                                    //                   showModalBottomSheet(context: context, builder: (context) =>
+                                    //                       Merchant_Update_Bottomsheet(
+                                    //                         data_user: snapshot
+                                    //                             .data[index],
+                                    //                       ));
+                                    //                 },
+                                    //                 icon: Icon(
+                                    //                     Icons.arrow_forward_ios)))
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // SizedBox(
+                                    //   height: 20,
+                                    // ),
+                                  ],
+                                );
                               }),
                         ),
-
-
-Divider(),
-
+                        Divider(
+                          color: Colors.blueGrey,
+                          thickness: 0.5,
+                        ),
                         Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
                               height: 50,
-                             // color: Colors.pink.shade50,
+                              // color: Colors.pink.shade50,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     "Total",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w700, fontSize: 20),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20),
                                   ),
                                   Text(
                                     "\$${returnTotalAmount(_user)}",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w700, fontSize: 20),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20),
                                   ),
                                 ],
                               ),
                             )),
-                      ],),
+                      ],
+                    ),
                   );
-              }
-            },
-          ),
+                }
+              },
+            ),
           ],
         ),
       ),
     );
   }
-
-
 
   String returnTotalAmount(List<User_Model> _user) {
     double totalAmount = 0.0;
@@ -368,9 +417,6 @@ Divider(),
     }
     return totalAmount.toString();
   }
-
-
-
 }
 
 class ProductCalculation {

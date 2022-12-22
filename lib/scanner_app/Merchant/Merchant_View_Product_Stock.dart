@@ -14,7 +14,7 @@ class User {
   final String productid;
   final String productname;
   final String productprice;
-  final String productqty;
+ // final String productqty;
   final String image;
   final String stock;
 
@@ -23,7 +23,7 @@ class User {
     required this.productid,
     required this.productname,
     required this.productprice,
-    required this.productqty,
+  // required this.productqty,
     required this.image,
     required this.stock,
   });
@@ -57,7 +57,7 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
         // productprice: singleUser["productprice"].toString(),
         // productqty: singleUser["productqty"].toString(),
         productprice: singleUser["productprice"],
-        productqty: singleUser["productqty"],
+       // productqty: singleUser["productqty"],
         stock: singleUser["stock"],
 
 
@@ -163,21 +163,21 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                                         "Price : " +
                                             snapshot.data[index].productprice,
                                       ),
-                                      // Text(
-                                      //   "Productstock : " +
-                                      //       snapshot.data[index].stock,
-                                      // ),
                                       Text(
                                         "Productstock : " +
-                                            StockCalculations
-                                                .getTotalRateFromString(
-                                                stock: snapshot
-                                                    .data[index]
-                                                    .stock,
-                                                Quantity: snapshot
-                                                    .data[index]
-                                                    .productqty),
+                                            snapshot.data[index].stock,
                                       ),
+                                      // Text(
+                                      //   "Productstock : " +
+                                      //       StockCalculations
+                                      //           .getTotalRateFromString(
+                                      //           stock: snapshot
+                                      //               .data[index]
+                                      //               .stock,
+                                      //           Quantity: snapshot
+                                      //               .data[index]
+                                      //               .productqty),
+                                      // ),
                                       Row(
                                         // mainAxisAlignment:
                                         // MainAxisAlignment.spaceBetween,

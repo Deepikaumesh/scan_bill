@@ -111,7 +111,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
               ),
               //  Text(getResult),
               Padding(
-                padding: EdgeInsets.all(40),
+                padding: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
                 child: TextFormField(
                   controller: textcontroller,
                   style: TextStyle(color: Colors.black),
@@ -136,7 +136,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40,vertical: 3),
+                padding: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                 child: TextFormField(
                   controller: product_qty,
                   style: TextStyle(color: Colors.black),
@@ -154,12 +154,16 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                         ),
                       ),
                       hintStyle: TextStyle(color: Colors.grey),
-                      hintText: "Qty",
+                      label: Text("Product Qty"),
+                   //   hintText: "Qty",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       )),
                 ),
               ),
+
+
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40,vertical: 3),
                 child: TextFormField(
@@ -179,12 +183,15 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                         ),
                       ),
                       hintStyle: TextStyle(color: Colors.grey),
-                      hintText: "Uid",
+                     label: Text("Uid"),
+                      //hintText: "Uid",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       )),
                 ),
               ),
+              SizedBox(height: 10,),
+
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -202,8 +209,9 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                         });
                         print("Successful");
                         textcontroller.clear();
-                        product_qty.clear();
+                        //product_qty.clear();
                         uid.clear();
+                       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard()));
 
 
                       },
@@ -216,10 +224,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                       )),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-
+                          SizedBox(height: 10,),
               Text(
                 status ? message : message,
                 style: GoogleFonts.lato(
@@ -352,11 +357,13 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
         message = responseMessage;
       });
     } else {
-      for (var singleUser in data) {
-        print(singleUser["id"]);
-        final _CustomersharedPrefs_uid = await SharedPreferences.getInstance();
-        await _CustomersharedPrefs_uid.setString("userid", singleUser["id"]);
-      }
+
+      // for (var singleUser in data) {
+      //   print(singleUser["id"]);
+      //
+      //   final _CustomersharedPrefs_uid = await SharedPreferences.getInstance();
+      //    await _CustomersharedPrefs_uid.setString("userid", singleUser["id"]);
+      // }
 
       textcontroller.clear();
       product_qty.clear();
