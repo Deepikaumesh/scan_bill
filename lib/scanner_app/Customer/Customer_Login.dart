@@ -217,7 +217,7 @@ class _Customer_LoginState extends State<Customer_Login> {
       final snackBar = SnackBar(
         content: Text('Login Successfull'),
         action: SnackBarAction(
-          label: 'Undo',
+          label: 'Ok',
           onPressed: () {
             // Some code to undo the change.
           },

@@ -42,16 +42,16 @@ class Carousel_slider extends StatelessWidget {
         ),
         //
         // //3rd Image of Slider
-        Container(
-          margin: EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            image: DecorationImage(
-              image: AssetImage("assets/images/pay3.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+        // Container(
+        //   margin: EdgeInsets.all(6.0),
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(8.0),
+        //     image: DecorationImage(
+        //       image: AssetImage("assets/images/pay3.jpg"),
+        //       fit: BoxFit.cover,
+        //     ),
+        //   ),
+        // ),
         //
         // //4th Image of Slider
         // Container(
@@ -104,7 +104,7 @@ class Carousel_slider extends StatelessWidget {
         enlargeCenterPage: true,
         autoPlay: true,
         aspectRatio: 16 / 9,
-        autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+        autoPlayCurve: Curves.fastOutSlowIn,
         enableInfiniteScroll: true,
         autoPlayAnimationDuration: Duration(milliseconds: 600),
         viewportFraction: 0.8,

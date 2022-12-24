@@ -144,156 +144,159 @@ class _ViewcartState extends State<Viewcart> {
                           itemCount: snapshot.data.length,
                           itemBuilder: (ctx, index) {
                             return
-                              Column(
-                              children: [
-                                Card(
-                                     shadowColor: Colors.red,
-                                    elevation: 8,
-                                    clipBehavior: Clip.antiAlias,
-                                    shape: RoundedRectangleBorder(
-                                       borderRadius: BorderRadius.circular(8),
-                                     ),
-                                    child: Container(
-                                      // color: Colors.red,
-                                      height:
-                                          MediaQuery.of(context).size.height / 5,
-                                      width: MediaQuery.of(context).size.width,
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 15, 50, 15),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              snapshot.data[index].image,
-                                              height: 100,
-                                              width: 100.0,
-                                              fit: BoxFit.cover,
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Column(
+                                children: [
+                                  Card(
+                                       shadowColor: Colors.red,
+                                      elevation: 8,
+                                      clipBehavior: Clip.antiAlias,
+                                      shape: RoundedRectangleBorder(
+                                         borderRadius: BorderRadius.circular(8),
+                                       ),
+                                      child: Container(
+                                        // color: Colors.red,
+                                        height:
+                                            MediaQuery.of(context).size.height / 5,
+                                        width: MediaQuery.of(context).size.width,
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 15, 50, 15),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                snapshot.data[index].image,
+                                                height: 100,
+                                                width: 100.0,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                          ),
-                                          Spacer(),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name : " +
-                                                    snapshot
-                                                        .data[index].productname,
-                                              ),
-                                              Text(
-                                                "Price : " +
-                                                    snapshot
-                                                        .data[index].productprice,
-                                              ),
+                                            Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Name : " +
+                                                      snapshot
+                                                          .data[index].productname,
+                                                ),
+                                                Text(
+                                                  "Price : " +
+                                                      snapshot
+                                                          .data[index].productprice,
+                                                ),
 
-                                              // Text(
-                                              //   "Product Qty : " +
-                                              //       snapshot
-                                              //           .data[index].productqty,
-                                              // ),
-                                              Text(
-                                                "Product Qty : " +
-                                                    snapshot
-                                                        .data[index].product_qty,
-                                              ),
-                                              Text(
-                                                "Sub Total : " +
-                                                    ProductCalculations
-                                                        .getTotalRateFromString(
-                                                            productPrice: snapshot
-                                                                .data[index]
-                                                                .productprice,
-                                                            Quantity: snapshot
-                                                                .data[index]
-                                                                .product_qty),
-                                              ),
+                                                // Text(
+                                                //   "Product Qty : " +
+                                                //       snapshot
+                                                //           .data[index].productqty,
+                                                // ),
+                                                Text(
+                                                  "Product Qty : " +
+                                                      snapshot
+                                                          .data[index].product_qty,
+                                                ),
+                                                Text(
+                                                  "Sub Total : " +
+                                                      ProductCalculations
+                                                          .getTotalRateFromString(
+                                                              productPrice: snapshot
+                                                                  .data[index]
+                                                                  .productprice,
+                                                              Quantity: snapshot
+                                                                  .data[index]
+                                                                  .product_qty),
+                                                ),
 
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Remove",
-                                                    style: GoogleFonts.aBeeZee(
-                                                        color:
-                                                            Colors.red.shade900),
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
-                                                        // setState(() {
-                                                        //   delrecord(snapshot
-                                                        //       .data[index].cid);
-                                                        // });
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (_) {
-                                                              return AlertDialog(
-                                                                shape: RoundedRectangleBorder(
-                                                                  borderRadius: BorderRadius.circular(16),
-                                                                ),
-                                                                title: Text("Remove item",style: TextStyle(color: Colors.pink.shade500),),
-                                                                content: Text(
-                                                                    "Are You sure want to remove the product from cart"),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () {
-                                                                      setState(() {
-                                                                        delrecord(snapshot
-                                                                            .data[index].cid);
-                                                                      });
-                                                                      Navigator.pushReplacement(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) =>
-                                                                                  Viewcart()));
-                                                                    },
-                                                                    child: Text("ok",style: TextStyle(color: Colors.pink.shade500,)),),
-                                                                  TextButton(
-                                                                    onPressed: () {
-                                                                      Navigator.pop(context);
-                                                                    },
-                                                                    child: Text("cancel",style: TextStyle(color: Colors.pink.shade500)),),
-                                                                ],
-                                                              );
-                                                            });
-                                                      },
-                                                      icon: Icon(Icons.clear,
-                                                          size: 20,
-                                                          color: Colors
-                                                              .red.shade900)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 20, bottom: 20, left: 20),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "Remove",
+                                                      style: GoogleFonts.aBeeZee(
+                                                          color:
+                                                              Colors.red.shade900),
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart_customer()));
+                                                          // setState(() {
+                                                          //   delrecord(snapshot
+                                                          //       .data[index].cid);
+                                                          // });
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (_) {
+                                                                return AlertDialog(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: BorderRadius.circular(16),
+                                                                  ),
+                                                                  title: Text("Remove item",style: TextStyle(color: Colors.pink.shade500),),
+                                                                  content: Text(
+                                                                      "Are You sure want to remove the product from cart"),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed: () {
+                                                                        setState(() {
+                                                                          delrecord(snapshot
+                                                                              .data[index].cid);
+                                                                        });
+                                                                        Navigator.pushReplacement(
+                                                                            context,
+                                                                            MaterialPageRoute(
+                                                                                builder: (context) =>
+                                                                                    Viewcart()));
+                                                                      },
+                                                                      child: Text("ok",style: TextStyle(color: Colors.pink.shade500,)),),
+                                                                    TextButton(
+                                                                      onPressed: () {
+                                                                        Navigator.pop(context);
+                                                                      },
+                                                                      child: Text("cancel",style: TextStyle(color: Colors.pink.shade500)),),
+                                                                  ],
+                                                                );
+                                                              });
+                                                        },
+                                                        icon: Icon(Icons.clear,
+                                                            size: 20,
+                                                            color: Colors
+                                                                .red.shade900)),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 20, bottom: 20, left: 20),
 
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    showModalBottomSheet(context: context, builder: (context) =>
-                                                            Merchant_Update_Bottomsheet(
-                                                              data_user: snapshot
-                                                                  .data[index],
-                                                            ));
-                                                  },
-                                                  icon: Icon(
-                                                      Icons.arrow_forward_ios)))
-                                        ],
+                                                child: IconButton(
+                                                    onPressed: () {
+                                                      showModalBottomSheet(context: context, builder: (context) =>
+                                                              Merchant_Update_Bottomsheet(
+                                                                data_user: snapshot
+                                                                    .data[index],
+                                                              ));
+                                                    },
+                                                    icon: Icon(
+                                                        Icons.arrow_forward_ios)))
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            );
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                            ),
+                              );
                           }),
                     ),
 

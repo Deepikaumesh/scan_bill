@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -30,6 +31,9 @@ class _Merchant_Product_RegistrationState
   TextEditingController qr_controller = TextEditingController();
   TextEditingController stock = TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+
+
 
   void scanQRCode() async {
     try {
@@ -102,6 +106,7 @@ class _Merchant_Product_RegistrationState
     request.files.add(pic);
     var response = await request.send();
     print(response);
+
 
     if (response.statusCode == 200) {
       print('Image Uploded');
@@ -378,6 +383,13 @@ class _Merchant_Product_RegistrationState
 
                 child: Text('Submit'),
               ),
+              // Text(
+              //   status ? message : message,
+              //   style: GoogleFonts.lato(
+              //       fontSize: 12,
+              //       color: Colors.red.shade900,
+              //       fontWeight: FontWeight.bold),
+              // ),
               SizedBox(
                 height: 15,
               ),
