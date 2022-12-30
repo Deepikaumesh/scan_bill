@@ -21,7 +21,7 @@ class Merchant_Product_Registration extends StatefulWidget {
 }
 
 class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registration> {
-  var getResult = '';
+
   var _image;
   final picker = ImagePicker();
   TextEditingController Productname = TextEditingController();
@@ -34,35 +34,7 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
 
 
 
-  void scanQRCode() async {
-    try {
-      final qrCode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
 
-      if (!mounted) return;
-
-      setState(() {
-        getResult = qrCode;
-      });
-      print("QRCode_Result:--");
-      print(qrCode);
-      qr_controller.text = qrCode;
-    } on PlatformException {
-      getResult = 'Failed to scan QR Code.';
-    }
-  }
-
-  signout(BuildContext ctx) async //using navigator so we need context
-  {
-    final _sharedPrefs = await SharedPreferences.getInstance();
-    await _sharedPrefs.clear();
-    //push new page and remove all other pages
-
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (ctx1) => Merchant_Login()),
-        (route) => false);
-  }
 
   Future choose_image() async {
     try {
@@ -95,12 +67,12 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
   Future uploadImage() async {
     final uri = Uri.parse(
         "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Add_Product_to_db.php");
-   // "http://192.168.29.64/MySampleApp/Scanner_App/Merchant/Add_Product_to_db.php");
+    // "http://192.168.29.64/MySampleApp/Scanner_App/Merchant/Add_Product_to_db.php");
     var request = http.MultipartRequest('POST', uri);
     request.fields['productid'] = qr_controller.text;
     request.fields['productname'] = Productname.text;
     request.fields['productprice'] = productprice.text;
-  //  request.fields['productqty'] = productqty.text;
+    //  request.fields['productqty'] = productqty.text;
     request.fields['stock'] = stock.text;
     var pic = await http.MultipartFile.fromPath("image", _image.path);
     request.files.add(pic);
@@ -112,7 +84,7 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
       print('Image Uploded');
       qr_controller.clear();
       productprice.clear();
-    //  productqty.clear();
+      //  productqty.clear();
       Productname.clear();
       stock.clear();
 
@@ -155,29 +127,8 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.height / 3,
-                width: MediaQuery.of(context).size.width / 2.2,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/qr.png'),
-                    //  fit: BoxFit.contain,
-                  ),
-                  //  color: Colors.grey,
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  backgroundColor: Colors.cyan,
-                  padding: EdgeInsets.only(
-                      left: 110, right: 110, top: 20, bottom: 20),
-                ),
-                onPressed: () {
-                  scanQRCode();
-                },
-                child: Text('Scan QR'),
-              ),
+
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 child: TextFormField(
@@ -355,15 +306,15 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
                       borderRadius: BorderRadius.circular(15),
                       child: _image != null
                           ? Image.file(
-                              _image,
-                              fit: BoxFit.cover,
-                            )
+                        _image,
+                        fit: BoxFit.cover,
+                      )
                           : Center(
-                              child: Text(
-                              "No image selected",
-                              style: GoogleFonts.hindVadodara(
-                                  fontSize: 13, color: Colors.red.shade900),
-                            )),
+                          child: Text(
+                            "No image selected",
+                            style: GoogleFonts.hindVadodara(
+                                fontSize: 13, color: Colors.red.shade900),
+                          )),
                     )),
               ),
               SizedBox(
@@ -383,27 +334,11 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
 
                 child: Text('Submit'),
               ),
-              // Text(
-              //   status ? message : message,
-              //   style: GoogleFonts.lato(
-              //       fontSize: 12,
-              //       color: Colors.red.shade900,
-              //       fontWeight: FontWeight.bold),
-              // ),
+
               SizedBox(
                 height: 15,
               ),
-         //  ElevatedButton(onPressed: (){
-         // //Navigator.pushReplacementNamed(context, "'Merchant_Product_Registration'");
-         //  }, child: Text("refresh"))
-          //     ElevatedButton(onPressed: (){
-          // //Navigator.push(context, MaterialPageRoute(builder: (context)=> Merchant_Product_Registration()));
-          // //       Navigator.pushAndRemoveUntil(
-          // //         context,
-          // //         MaterialPageRoute(builder: (context) => Merchant_Product_Registration() ),
-          // //             (Route<dynamic> route) => false,
-          // //       );
-          //     }, child: Text("Refresh Page"))
+
             ],
           ),
         ),
