@@ -14,7 +14,7 @@ class User {
   final String productid;
   final String productname;
   final String productprice;
- // final String productqty;
+ //final String productqty;
   final String image;
   final String stock;
 
@@ -23,7 +23,7 @@ class User {
     required this.productid,
     required this.productname,
     required this.productprice,
-  // required this.productqty,
+   //required this.productqty,
     required this.image,
     required this.stock,
   });
@@ -42,6 +42,7 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
     //replace your restFull API here.
     String url =
         "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_View_Product_Stock.php";
+   // "http://192.168.29.64/MySampleApp/Scanner_App/Merchant/Cart_Display.php";
 
     final response = await http.get(Uri.parse(url));
 
@@ -57,7 +58,7 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
         // productprice: singleUser["productprice"].toString(),
         // productqty: singleUser["productqty"].toString(),
         productprice: singleUser["productprice"],
-       // productqty: singleUser["productqty"],
+      //  productqty: singleUser["productqty"],
         stock: singleUser["stock"],
 
 
@@ -74,17 +75,20 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
+
           leading: IconButton(
               onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Dashboard()));
               },
-              icon: Icon(Icons.arrow_back)),
-        backgroundColor: Colors.red.shade200,
+              icon: Icon(Icons.arrow_back,color: Colors.black,)),
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           "Product Stock",
-          style: GoogleFonts.prompt(fontSize: 22),
+          style: GoogleFonts.prompt(fontSize: 22,color: Colors.pink.shade900),
         ),
       ),
       body: Container(
@@ -163,10 +167,10 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                                         "Price : " +
                                             snapshot.data[index].productprice,
                                       ),
-                                      Text(
-                                        "Productstock : " +
-                                            snapshot.data[index].stock,
-                                      ),
+                                      // Text(
+                                      //   "Productstock : " +
+                                      //       snapshot.data[index].stock,
+                                      // ),
                                       // Text(
                                       //   "Productstock : " +
                                       //       StockCalculations
@@ -225,12 +229,12 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 30),
-                                      child: IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.arrow_forward_ios)))
+                                  // Padding(
+                                  //     padding: EdgeInsets.symmetric(
+                                  //         horizontal: 5, vertical: 30),
+                                  //     child: IconButton(
+                                  //         onPressed: () {},
+                                  //         icon: Icon(Icons.arrow_forward_ios)))
                                 ],
                               ),
                             )),

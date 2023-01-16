@@ -137,18 +137,20 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-          backgroundColor: Colors.amber.shade300,
-          title: Center(
-            child: Text(
-              "Product Registration",
-            ),
+        elevation: 0,
+        centerTitle: true,
+          backgroundColor: Colors.white,
+          title: Text(
+        "Product Registration",style: GoogleFonts.prompt(fontSize: 25,color: Colors.pink.shade900),
           ),
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back))),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       Navigator.pop(context);
+          //     },
+          //     icon: Icon(Icons.arrow_back))
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formkey,
@@ -166,17 +168,29 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
                   //  color: Colors.grey,
                 ),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  backgroundColor: Colors.cyan,
-                  padding: EdgeInsets.only(
-                      left: 110, right: 110, top: 20, bottom: 20),
+              Container(
+                height: 80,
+                width: double.infinity,
+                padding: const EdgeInsets.only(top: 25, left: 24, right: 24),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    backgroundColor: Colors.blueGrey.shade600,
+                    padding: EdgeInsets.only(
+                        left: 40, right: 40, top: 15, bottom: 15),
+                  ),
+                  onPressed: () {
+                    scanQRCode();
+                  },
+                  child: Text(
+                    'Scan Qr code',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-                onPressed: () {
-                  scanQRCode();
-                },
-                child: Text('Scan QR'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -372,7 +386,7 @@ class _Merchant_Product_RegistrationState extends State<Merchant_Product_Registr
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
-                  backgroundColor: Colors.grey.shade500,
+                  backgroundColor: Colors.pink.shade900,
                   padding: EdgeInsets.only(
                       left: 110, right: 110, top: 20, bottom: 20),
                 ),

@@ -30,7 +30,7 @@ $connection = mysqli_connect($servername, $username, $password, $database);
  
  
 
-$findexist="select * from cust_cart_product where productid='".$productid."'";
+$findexist="select * from cust_cart_product where productid='".$productid."' && uid='".$uid."'";
 
 
         $resultsearch=mysqli_query($connection,$findexist);

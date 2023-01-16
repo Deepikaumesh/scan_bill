@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Reserved_Files/Carousel slider.dart';
+import '../../main.dart';
+import '../Customer/Customer_Online_Payment.dart';
 import '../Customer/ViewCart.dart';
 import '../Merchant/Merchant_Update_With_BottomSheet.dart';
 
@@ -77,17 +79,19 @@ class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back)),
-        backgroundColor: Colors.red.shade200,
+        backgroundColor: Colors.white,
+        elevation: 0,
         centerTitle: true,
         title: Text(
           "Payment",
-          style: GoogleFonts.prompt(fontSize: 22),
+          style: GoogleFonts.prompt(fontSize: 25,color: Colors.pink.shade900),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -135,8 +139,8 @@ class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
             color: Colors.blueGrey,
           ),
           TextButton(onPressed: () {
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Online_Payment()));
-          }, child: Text("Online Payment",style: TextStyle(color: Colors.pink.shade500,fontSize: 22),))
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_online_payment(cart_data: access_total_amt,)));
+          }, child: Text("Online Payment",style: TextStyle(color:  Colors.teal.shade300,fontSize: 22),))
         ],
       )),
       body: Container(

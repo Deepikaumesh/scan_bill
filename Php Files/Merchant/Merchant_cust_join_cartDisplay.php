@@ -13,7 +13,8 @@ if ($connection->connect_error) {
 }
  
  
-   $sql = "SELECT cust_cart_product.id as cartid,product_qty,uid, merchant_add_product.* FROM cust_cart_product inner join merchant_add_product ON cust_cart_product.productid =merchant_add_product.productid"; 
+   $sql = "SELECT cust_cart_product.id as cartid,product_qty,uid, merchant_add_product.* FROM cust_cart_product inner
+    join merchant_add_product ON cust_cart_product.productid =merchant_add_product.productid";
   
     $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
      

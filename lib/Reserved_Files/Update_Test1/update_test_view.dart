@@ -154,6 +154,7 @@
 import 'dart:convert';
 
 import 'package:ecommerce_scan_andbill_app/Reserved_Files/Update_Test1/update_test_detailpage.dart';
+import 'package:ecommerce_scan_andbill_app/main.dart';
 import 'package:ecommerce_scan_andbill_app/scanner_app/Customer/Customer_Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -190,7 +191,7 @@ class _update_test_viewState extends State<update_test_view> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_rounded),
           onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>Customer_Dashboard()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>Customer_Dashboard(uiddata: uid_key,)));
           },
         ),
       ),

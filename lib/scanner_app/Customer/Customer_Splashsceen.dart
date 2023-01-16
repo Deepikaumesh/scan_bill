@@ -67,12 +67,11 @@ class _Customer_SplashscreenState extends State<Customer_Splashscreen> {
     final _sharedPrefs =await SharedPreferences.getInstance();
    // print("first key check "+Customer_Key);
     final _userid=_sharedPrefs.getString("userid");
-
     if(_userid == null){
       gotoLogin_Customer();
     }
     else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard(uiddata: uid_key)));
     }
 
   }

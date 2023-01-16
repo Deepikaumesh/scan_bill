@@ -96,6 +96,16 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
 
 
               //Text("uid test"+widget.uiddata.toString()),
+              Container(
+                height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width / 1.2,
+                decoration: BoxDecoration(
+                  //border: Border.all(width: 0.5,color: Colors.pink),
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/qr.png"),
+                        fit: BoxFit.fill)),
+              ),
               // Container(
               //   height: MediaQuery.of(context).size.height / 2.5,
               //   width: MediaQuery.of(context).size.width / 1.4,
@@ -262,7 +272,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                             left: 20, right: 20, top: 15, bottom: 15),
                       ),
                       onPressed: () {
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Viewcart()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -311,7 +321,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
   }
 
   Customer_Signout(BuildContext ctx) async //using navigator so we need context
-  {
+      {
     final _CustomersharedPrefs = await SharedPreferences.getInstance();
     await _CustomersharedPrefs.clear();
     //push new page and remove all other pages
@@ -319,7 +329,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (ctx1) => Customer_Login()),
-        (route) => false);
+            (route) => false);
   }
 
   Future send_scan_value() async {
@@ -335,7 +345,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
     };
     //send  data using http post to our php code
     http.Response response =
-        await http.post(Uri.parse(APIURL), body: mapeddate);
+    await http.post(Uri.parse(APIURL), body: mapeddate);
 
     //   getting response from php code, here
     var data = jsonDecode(response.body);

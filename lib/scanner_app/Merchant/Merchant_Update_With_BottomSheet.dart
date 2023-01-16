@@ -69,7 +69,7 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
     return Column(
       children: [
         Container(
-          // color: Colors.red.shade50,
+         // color: Colors.white,
           height: MediaQuery.of(context).size.height / 3,
           width: MediaQuery.of(context).size.width,
           child: Row(
@@ -198,7 +198,7 @@ class _Merchant_Update_BottomsheetState extends State<Merchant_Update_Bottomshee
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: StadiumBorder(),
-                backgroundColor: Colors.red.shade900,
+                backgroundColor: Colors.teal.shade300,
                 padding: EdgeInsets.only(
                     left: 50, right: 50, top: 15, bottom: 15),
               ),

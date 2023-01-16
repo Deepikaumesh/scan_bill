@@ -49,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
-                          backgroundColor: Colors.red.shade900,
+                          backgroundColor: Colors.pink.shade900,
                           padding: EdgeInsets.only(
                               left: 40, right: 40, top: 15, bottom: 15),
                         ),
@@ -78,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
-                          backgroundColor: Colors.red.shade900,
+                          backgroundColor: Colors.pink.shade900,
                           padding: EdgeInsets.only(
                               left: 40, right: 40, top: 15, bottom: 15),
                         ),

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 const Merchant_Key = "MerchantLoggedIn";
 //String Customer_Key = "CustomerLoggedIn";
+var uid_key = '';
+var access_total_amt ='';
+
 
 final subTotal = 0;
 
@@ -17,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
 
       home: WelcomeScreen(),

@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
 import '../../main.dart';
-
 import 'Customer_Dashboard.dart';
 import 'Customer_Registration.dart';
 
@@ -19,6 +17,10 @@ class Customer_Login extends StatefulWidget {
 class _Customer_LoginState extends State<Customer_Login> {
   TextEditingController Cust_user = TextEditingController();
   TextEditingController Cust_pass = TextEditingController();
+
+
+
+
   final GlobalKey<FormState> Cust_formkey = GlobalKey<FormState>();
 
   @override
@@ -117,11 +119,11 @@ class _Customer_LoginState extends State<Customer_Login> {
                                       ),
                                       onPressed: () {
                                         setState(() {
-                                          // login();
                                         });
                                         Cust_Login();
 
-                                        if (Cust_formkey.currentState!.validate()) {
+                                        if (Cust_formkey.currentState!
+                                            .validate()) {
                                           print("Successfully  logged");
                                           Cust_user.clear();
                                           Cust_pass.clear();
@@ -186,36 +188,42 @@ class _Customer_LoginState extends State<Customer_Login> {
   }
 
   Future Cust_Login() async {
-    var url ="https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/login.php"; //intego wifi password
-    var response = await http.post(Uri.parse(url),
-        headers: {
-      'Accept':'application/json'
-        },
-
-        body: {
+    var url =
+        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/login.php"; //intego wifi password
+    var response = await http.post(Uri.parse(url), headers: {
+      'Accept': 'application/json'
+    }, body: {
       "username": Cust_user.text,
       "password": Cust_pass.text,
     });
     var data = json.decode(response.body);
     // if (data.toString() == "Success") {
-    if (data!=null) {
+    if (data != null) {
       //var responseData = json.decode(response.body);
 
-
       for (var singleUser in data) {
-        // await  SessionManager().set('token', user.text);
-         print(singleUser["id"]);
-         final _CustomersharedPrefs = await SharedPreferences.getInstance();
-         // await _CustomersharedPrefs.setBool(Customer_Key, true);
-         await _CustomersharedPrefs.setString("userid", singleUser["id"]);
+
+
+        print("user id here"+singleUser["id"]);
+
+
+        uid_key =singleUser["id"];
+
+
+
+        final _CustomersharedPrefs = await SharedPreferences.getInstance();
+        // await _CustomersharedPrefs.setBool(Customer_Key, true);
+        await _CustomersharedPrefs.setString("userid", singleUser["id"]);
 
         // print(response);
         //Customer_Key=singleUser["id"];
-         //print("key:"+Customer_Key);
+        //print("key:"+Customer_Key);
       }
 
       final snackBar = SnackBar(
-        content: Text('Login Successfull'),
+        // content: Text('Login Successfull'),
+        content: Text("Successfully logged"),
+        //   content: Text("Successfully logged"+uid_key),
         action: SnackBarAction(
           label: 'Ok',
           onPressed: () {
@@ -233,14 +241,12 @@ class _Customer_LoginState extends State<Customer_Login> {
       // await _CustomersharedPrefs.setInt("userid", data["id"]);
 
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Customer_Dashboard()));
-      print("username:");
-     // Customer_Key=data["id"];
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => Customer_Dashboard(uiddata: uid_key)));
+      // Customer_Key=data["id"];
       //print(data["id"]);
-     // print(Customer_Key);
-     // print(data);
-
+      // print(Customer_Key);
+      // print(data);
 
     } else {
       final snackBar = SnackBar(

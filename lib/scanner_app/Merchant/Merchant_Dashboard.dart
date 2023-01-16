@@ -1,5 +1,7 @@
+import 'package:ecommerce_scan_andbill_app/Reserved_Files/Carousel%20slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Scanner_main_way.dart';
@@ -13,7 +15,6 @@ class Merchant_Dashboard extends StatefulWidget {
 }
 
 class _Merchant_DashboardState extends State<Merchant_Dashboard> {
-
   Merchant_Signout(BuildContext ctx) async //using navigator so we need context
   {
     final _MerchanntsharedPrefs = await SharedPreferences.getInstance();
@@ -29,18 +30,19 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
-        automaticallyImplyLeading: false, //for hiding default back arrow
-        backgroundColor: Colors.amber.shade300,
+        centerTitle: true,
+        elevation: 0,
+
+        automaticallyImplyLeading: false,
+        //for hiding default back arrow
+        backgroundColor: Colors.white,
         title: Center(
           child: Text(
             "Dashboard",
+            style:
+                GoogleFonts.prompt(fontSize: 25, color: Colors.pink.shade900),
           ),
         ),
 
@@ -49,51 +51,121 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
               onPressed: () {
                 Merchant_Signout(context);
               },
-              icon: Icon(Icons.exit_to_app))
+              icon: Icon(Icons.exit_to_app, color: Colors.pink.shade900))
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 70, vertical: 70),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  backgroundColor: Colors.cyan,
-                  padding:
-                      EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Merchant_Product_Registration()));
-                },
-                child: Text('Product Registration'),
-              ),
+            SizedBox(
+              height: 30,
             ),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 70, vertical: 70),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  backgroundColor: Colors.red.shade200,
-                  padding:
-                  EdgeInsets.only(left: 60, right: 60, top: 20, bottom: 20),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Merchant_View_Product_stock()));
-                },
-                child: Text('View Product Stock'),
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
+              width: MediaQuery.of(context).size.width / 1.2,
+              decoration: BoxDecoration(
+                  //border: Border.all(width: 0.5,color: Colors.pink),
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/qr.png"),
+                      fit: BoxFit.fill)),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 85, vertical: 10),
+              height: 50,
+              width: MediaQuery.of(context).size.width / 1.2,
+              child: Text(
+                "Qr code scanner",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
+              color: Colors.blueGrey.shade100,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Carousel_slider(),
+            SizedBox(height: 30,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 50,
+                  // width: double.infinity,
+                  //  padding:
+                  //  const EdgeInsets.only(top: 20, left: 110, right: 100,bottom: 10),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      //  shape: StadiumBorder(),
+                      backgroundColor: Colors.pink.shade900,
+                      padding: EdgeInsets.only(
+                          left: 20, right: 20, top: 15, bottom: 15),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Merchant_Product_Registration()));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.add_shopping_cart),
+                        Text(
+                          'Product Registration',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  // width: MediaQuery.of(context).size.width,
+                  //  padding:
+                  //  const EdgeInsets.only(top: 20, left: 110, right: 110,bottom: 10),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      //  shape: StadiumBorder(),
+                      backgroundColor: Colors.teal.shade300,
+                      padding: EdgeInsets.only(
+                          left: 20, right: 20, top: 15, bottom: 15),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Merchant_View_Product_stock()));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.shopping_cart),
+                        Text(
+                          'View products',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

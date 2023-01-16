@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../main.dart';
 import '../Merchant/Merchant_Payment.dart';
 import '../Merchant/Merchant_Update_With_BottomSheet.dart';
 
@@ -44,13 +44,26 @@ class Viewcart extends StatefulWidget {
 }
 
 class _ViewcartState extends State<Viewcart> {
+
+
+  Future<void> access_id() async {
+    final _sharedPrefs = await SharedPreferences.getInstance();
+    final  ui = _sharedPrefs.getString("hope_userid");
+    uid_key =ui!;
+
+  }
+
+
+
+
   num subTotal = 0;
 
   //Applying get request.
   Future<List<User>> getRequest() async {
     //replace your restFull API here.
     String url =
-        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php";
+      "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php";
+   // "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php?uid="+uid_key;
 
     final response = await http.get(Uri.parse(url));
 
@@ -58,6 +71,8 @@ class _ViewcartState extends State<Viewcart> {
 
     //Creating a list to store input data;
     List<User> users = [];
+
+
     for (var singleUser in responseData) {
       User user = User(
         product_qty: singleUser["product_qty"].toString(),
@@ -70,36 +85,51 @@ class _ViewcartState extends State<Viewcart> {
         image: singleUser["image"].toString(),
         stock: singleUser["stock"].toString(),
       );
+      // final _sharedPrefs = await SharedPreferences.getInstance();
+      // final  ui = _sharedPrefs.getString("hope_userid");
+      // uid_key =ui!;
 
       //Adding user to the list.
       users.add(user);
+
     }
     return users;
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back)),
-        backgroundColor: Colors.red.shade200,
+            icon: Icon(Icons.arrow_back,color: Colors.pink.shade900,)),
+        backgroundColor: Colors.white,
+        elevation: 0,
         centerTitle: true,
         title: Text(
-          "My Cart",
-          style: GoogleFonts.prompt(fontSize: 22),
+          "My cart",style: GoogleFonts.prompt(fontSize: 25,color: Colors.pink.shade900),
         ),
+          actions: [
+          IconButton(
+          onPressed: () {
+
+    },
+        icon: Icon(Icons.shopping_cart,color: Colors.pink.shade900,)),],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.pink.shade500,
+        color: Colors.pink.shade900,
         child: TextButton(
            onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>Merchant_Payment_Page()));
            }, child:
-        Text("Buy",style: TextStyle(color: Colors.white),),
+        Text("Buy",style:GoogleFonts.prompt(color: Colors.white,fontSize: 20),
+        //TextStyle(color: Colors.white),
+        ),
         )
 
       ),
@@ -132,6 +162,9 @@ class _ViewcartState extends State<Viewcart> {
                 );
               } else {
                 List<User> _user = snapshot.data;
+                print("test"+returnTotalAmount(_user));
+
+                access_total_amt =returnTotalAmount(_user);
                 return
                   Flexible(
                     child: Column(
@@ -145,7 +178,7 @@ class _ViewcartState extends State<Viewcart> {
                           itemBuilder: (ctx, index) {
                             return
                               SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
+                              //  scrollDirection: Axis.horizontal,
                                 child: Column(
                                 children: [
                                   Card(
@@ -324,6 +357,13 @@ class _ViewcartState extends State<Viewcart> {
                             ],
                           ),
                         )),
+                        Row(
+                          children: [
+                            Text("uid-"),
+                            Text(uid_key),
+                          ],
+                        )
+
                 ],),
                   );
               }
