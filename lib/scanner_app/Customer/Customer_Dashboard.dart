@@ -10,8 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Reserved_Files/Carousel slider.dart';
+import '../Carousel slider.dart';
 import '../Scanner_main_way.dart';
+import 'Customer_Drawer_User.dart';
 import 'Customer_Login.dart';
 import 'ViewCart.dart';
 
@@ -59,7 +60,8 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
           centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 0,
-          automaticallyImplyLeading: false,
+          iconTheme: IconThemeData(color: Colors.pink.shade900),
+        //  automaticallyImplyLeading: false,
           //leading:Text(widget.uname,style: TextStyle(color: Colors.black),),
           // IconButton(
           //   onPressed: () {
@@ -68,6 +70,7 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
           //   },
           //   icon: Icon(Icons.arrow_back),
           // ),
+
 
           title: Center(
             child: Text(
@@ -82,9 +85,9 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
                 icon: Icon(Icons.exit_to_app,color: Colors.pink.shade900,))
           ],
         ),
-        // drawer: Drawer(
-        //   child: MainDrawer(),
-        // ),
+        drawer: Drawer(
+          child: Customer_Drawer(),
+        ),
         body: SingleChildScrollView(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -96,19 +99,19 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
 
 
               //Text("uid test"+widget.uiddata.toString()),
-              // Container(
-              //   height: MediaQuery.of(context).size.height / 2.5,
-              //   width: MediaQuery.of(context).size.width / 1.4,
-              //   decoration: BoxDecoration(
-              //     //  border: Border.all(),
-              //     // borderRadius: BorderRadius.circular(50),
-              //     image: DecorationImage(
-              //       image: AssetImage('assets/images/qr.png'),
-              //       //  fit: BoxFit.contain,
-              //     ),
-              //     //  color: Colors.grey,
-              //   ),
-              // ),
+              Container(
+                height: MediaQuery.of(context).size.height / 2.5,
+                width: MediaQuery.of(context).size.width / 1.4,
+                decoration: BoxDecoration(
+                  //  border: Border.all(),
+                  // borderRadius: BorderRadius.circular(50),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/qr.png'),
+                    //  fit: BoxFit.contain,
+                  ),
+                  //  color: Colors.grey,
+                ),
+              ),
               // SizedBox(
               //   height: 20,
               // ),
@@ -332,7 +335,9 @@ class _Customer_DashboardState extends State<Customer_Dashboard> {
       'productid': textcontroller.text,
       'product_qty': product_qty.text,
       'uid': uid.text,
+
     };
+    print("disp");
     //send  data using http post to our php code
     http.Response response =
         await http.post(Uri.parse(APIURL), body: mapeddate);

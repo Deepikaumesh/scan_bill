@@ -46,12 +46,12 @@ class Viewcart extends StatefulWidget {
 class _ViewcartState extends State<Viewcart> {
 
 
-  Future<void> access_id() async {
-    final _sharedPrefs = await SharedPreferences.getInstance();
-    final  ui = _sharedPrefs.getString("hope_userid");
-    uid_key =ui!;
-
-  }
+  // Future<void> access_id() async {
+  //   final _sharedPrefs = await SharedPreferences.getInstance();
+  //   final  ui = _sharedPrefs.getString("userid");
+  //   uid_key =ui!;
+  //
+  // }
 
 
 
@@ -61,9 +61,12 @@ class _ViewcartState extends State<Viewcart> {
   //Applying get request.
   Future<List<User>> getRequest() async {
     //replace your restFull API here.
+    final _sharedPrefs = await SharedPreferences.getInstance();
+    final  ui = _sharedPrefs.getString("userid");
+
     String url =
-      "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php";
-   // "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php?uid="+uid_key;
+      //"https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php";
+    "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php?uid="+ui!;
 
     final response = await http.get(Uri.parse(url));
 
@@ -357,12 +360,12 @@ class _ViewcartState extends State<Viewcart> {
                             ],
                           ),
                         )),
-                        Row(
-                          children: [
-                            Text("uid-"),
-                            Text(uid_key),
-                          ],
-                        )
+                        // Row(
+                        //   children: [
+                        //     Text("uid-"),
+                        //     Text(uid_key),
+                        //   ],
+                        // )
 
                 ],),
                   );

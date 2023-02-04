@@ -12,7 +12,7 @@ class Carousel_slider extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             image: DecorationImage(
-              image: AssetImage("assets/images/payment.jpg"),
+              image: AssetImage("assets/images/pay1.jpg"),
               fit: BoxFit.cover,
             ),
           ),
@@ -22,7 +22,7 @@ class Carousel_slider extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             image: DecorationImage(
-              image: AssetImage("assets/images/p1.jpg"),
+              image: AssetImage("assets/images/pay2.jpg"),
               fit: BoxFit.cover,
             ),
           ),
@@ -35,43 +35,43 @@ class Carousel_slider extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             image: DecorationImage(
-              image: AssetImage("assets/images/p2.jpg"),
+              image: AssetImage("assets/images/pay3.jpg"),
               fit: BoxFit.cover,
             ),
           ),
         ),
         //
-        // //3rd Image of Slider
-        // Container(
-        //   margin: EdgeInsets.all(6.0),
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(8.0),
-        //     image: DecorationImage(
-        //       image: AssetImage("assets/images/pay3.jpg"),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
+      //  3rd Image of Slider
+        Container(
+          margin: EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            image: DecorationImage(
+              image: AssetImage("assets/images/pay4.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         //
-        // //4th Image of Slider
-        // Container(
-        //   margin: EdgeInsets.all(6.0),
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(8.0),
-        //     image: DecorationImage(
-        //       image: AssetImage("assets/images/pay4.jpg"),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
-        //
+        //4th Image of Slider
+        Container(
+          margin: EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            image: DecorationImage(
+              image: AssetImage("assets/images/pay5.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+
         // //5th Image of Slider
         // Container(
         //   margin: EdgeInsets.all(6.0),
         //   decoration: BoxDecoration(
         //     borderRadius: BorderRadius.circular(8.0),
         //     image: DecorationImage(
-        //       image: AssetImage("assets/images/pay5.png"),
+        //       image: AssetImage("assets/images/pay6.png"),
         //       fit: BoxFit.cover,
         //     ),
         //   ),

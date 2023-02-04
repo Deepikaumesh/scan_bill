@@ -1,4 +1,5 @@
-import 'package:ecommerce_scan_andbill_app/Reserved_Files/Carousel%20slider.dart';
+import 'package:ecommerce_scan_andbill_app/scanner_app/Carousel%20slider.dart';
+import 'package:ecommerce_scan_andbill_app/scanner_app/Merchant/Merchant_Drawer_User.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,8 +35,9 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.pink.shade900),
 
-        automaticallyImplyLeading: false,
+      //  automaticallyImplyLeading: false,
         //for hiding default back arrow
         backgroundColor: Colors.white,
         title: Center(
@@ -53,6 +55,9 @@ class _Merchant_DashboardState extends State<Merchant_Dashboard> {
               },
               icon: Icon(Icons.exit_to_app, color: Colors.pink.shade900))
         ],
+      ),
+      drawer: Drawer(
+        child: Merchant_Drawer(),
       ),
       body: SingleChildScrollView(
         child: Column(

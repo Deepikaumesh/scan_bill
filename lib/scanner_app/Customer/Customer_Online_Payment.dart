@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 import '../Merchant/Merchant_Payment.dart';
@@ -23,11 +24,27 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
   TextEditingController phone = new TextEditingController();
   TextEditingController ac_no = new TextEditingController();
   TextEditingController total_amt = new TextEditingController();
+  TextEditingController order_id = new TextEditingController();
+  TextEditingController uid = new TextEditingController();
 
   final GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
 
   late bool status;
   late String message;
+
+  Future<void> access_id() async {
+    final _sharedPrefs = await SharedPreferences.getInstance();
+    setState(() {
+      final  ui = _sharedPrefs.getString("hope_userid");
+      //uid_user =ui!;
+      if(uid_user == null){
+        uid_user=ui!;
+      }
+    });
+
+
+
+  }
 
   @override
   void initState() {
@@ -36,14 +53,20 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
     phone = TextEditingController();
     ac_no = TextEditingController();
     total_amt = TextEditingController(text: widget.cart_data);
+    order_id = new TextEditingController();
+    uid = new TextEditingController();
 
     status = false;
+
+
     message = "";
 
     super.initState();
   }
 
   Future<void> submitData() async {
+
+
     var send = await http.post(
         Uri.parse("https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/payment.php"),
         body: {
@@ -52,6 +75,9 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
           "phone": phone.text,
           "ac_no": ac_no.text,
           "total_amt": total_amt.text,
+        //  "uid":uid_user,
+         // "order_id":ui,
+
         });
 
     if (send.statusCode == 200) {

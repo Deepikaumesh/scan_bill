@@ -47,6 +47,10 @@ dependencies:
   image_picker:
   top_snackbar_flutter: ^3.0.0
   carousel_slider: ^4.2.1
+  #url_launcher: ^6.0.9
+  #open_mail_app: ^0.4.5
+
+
 
 dev_dependencies:
   flutter_test:

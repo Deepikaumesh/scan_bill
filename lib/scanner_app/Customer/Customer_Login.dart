@@ -242,7 +242,10 @@ class _Customer_LoginState extends State<Customer_Login> {
 
 
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => Customer_Dashboard(uiddata: uid_key)));
+          MaterialPageRoute(builder: (context) => Customer_Dashboard(uiddata: uid_key,)));
+
+
+
       // Customer_Key=data["id"];
       //print(data["id"]);
       // print(Customer_Key);

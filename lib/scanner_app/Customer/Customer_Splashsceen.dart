@@ -71,7 +71,7 @@ class _Customer_SplashscreenState extends State<Customer_Splashscreen> {
       gotoLogin_Customer();
     }
     else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard(uiddata: uid_key)));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_Dashboard(uiddata: uid_key,)));
     }
 
   }

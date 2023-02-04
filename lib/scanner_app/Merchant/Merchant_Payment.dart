@@ -5,8 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Reserved_Files/Carousel slider.dart';
+import '../Carousel slider.dart';
 import '../../main.dart';
 import '../Customer/Customer_Online_Payment.dart';
 import '../Customer/ViewCart.dart';
@@ -48,8 +49,11 @@ class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
   //Applying get request.
   Future<List<User_Model>> getRequest() async {
     //replace your restFull API here.
+
+    final _sharedPrefs = await SharedPreferences.getInstance();
+    final  ui = _sharedPrefs.getString("userid");
     String url =
-        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php";
+        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Merchant_cust_join_cartDisplay.php?uid="+ui!;
 
     final response = await http.get(Uri.parse(url));
 

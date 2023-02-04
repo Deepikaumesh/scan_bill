@@ -5,6 +5,7 @@ const Merchant_Key = "MerchantLoggedIn";
 //String Customer_Key = "CustomerLoggedIn";
 var uid_key = '';
 var access_total_amt ='';
+var uid_user ='';
 
 
 final subTotal = 0;
