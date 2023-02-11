@@ -143,6 +143,7 @@ class _Merchant_Payment_PageState extends State<Merchant_Payment_Page> {
             color: Colors.blueGrey,
           ),
           TextButton(onPressed: () {
+            print("key access test"+uid_key);
             Navigator.push(context, MaterialPageRoute(builder: (context)=>Customer_online_payment(cart_data: access_total_amt,)));
           }, child: Text("Online Payment",style: TextStyle(color:  Colors.teal.shade300,fontSize: 22),))
         ],

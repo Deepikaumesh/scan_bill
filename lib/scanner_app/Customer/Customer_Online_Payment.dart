@@ -24,7 +24,8 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
   TextEditingController phone = new TextEditingController();
   TextEditingController ac_no = new TextEditingController();
   TextEditingController total_amt = new TextEditingController();
-  TextEditingController order_id = new TextEditingController();
+  // TextEditingController order_id = new TextEditingController();
+  // TextEditingController order_date = new TextEditingController();
   TextEditingController uid = new TextEditingController();
 
   final GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
@@ -53,7 +54,8 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
     phone = TextEditingController();
     ac_no = TextEditingController();
     total_amt = TextEditingController(text: widget.cart_data);
-    order_id = new TextEditingController();
+    // order_id = new TextEditingController(text: "2");
+    // order_date = new TextEditingController(text: "7");
     uid = new TextEditingController();
 
     status = false;
@@ -75,8 +77,9 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
           "phone": phone.text,
           "ac_no": ac_no.text,
           "total_amt": total_amt.text,
-        //  "uid":uid_user,
-         // "order_id":ui,
+          "uid":uid_key,
+          // "order_id":order_id.text,
+          // "order_date":order_date.text,
 
         });
 
@@ -208,7 +211,7 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
                           borderSide: new BorderSide(color: Colors.teal),
                         ),
                       ),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                   SizedBox(
@@ -261,6 +264,38 @@ class _Customer_online_paymentState extends State<Customer_online_payment> {
                       keyboardType: TextInputType.text,
                     ),
                   ),
+                  SizedBox(height: 10,),
+                  // Container(
+                  //   //  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  //   child: TextFormField(
+                  //     controller: order_date,
+                  //     decoration: InputDecoration(
+                  //       //  labelText: "Enter n",
+                  //       label: Text("order date"),
+                  //       border: new OutlineInputBorder(
+                  //         borderSide: new BorderSide(color: Colors.teal),
+                  //       ),
+                  //     ),
+                  //     keyboardType: TextInputType.text,
+                  //   ),
+                  // ),
+                  SizedBox(height: 10,),
+                  // Container(
+                  //   //  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  //   child: TextFormField(
+                  //     controller: order_id,
+                  //     decoration: InputDecoration(
+                  //       //  labelText: "Enter n",
+                  //       label: Text("order id"),
+                  //       border: new OutlineInputBorder(
+                  //         borderSide: new BorderSide(color: Colors.teal),
+                  //       ),
+                  //     ),
+                  //     keyboardType: TextInputType.text,
+                  //   ),
+                  // ),
+
+
                   SizedBox(
                     height: 30,
                   ),

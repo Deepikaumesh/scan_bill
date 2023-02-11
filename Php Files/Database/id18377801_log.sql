@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 24, 2022 at 06:42 AM
+-- Generation Time: Feb 11, 2023 at 09:56 AM
 -- Server version: 10.5.16-MariaDB
 -- PHP Version: 7.3.32
 
@@ -21,18 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `id18377801_log`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `AA`
---
-
-CREATE TABLE `AA` (
-  `id` int(255) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -60,6 +48,76 @@ INSERT INTO `cartlast` (`id`, `name`, `price`, `qty`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart_hope`
+--
+
+CREATE TABLE `cart_hope` (
+  `id` int(255) NOT NULL,
+  `craft_id` varchar(255) NOT NULL,
+  `qty` varchar(255) NOT NULL,
+  `uid` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart_hope`
+--
+
+INSERT INTO `cart_hope` (`id`, `craft_id`, `qty`, `uid`) VALUES
+(1, '190', '1', '3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `craft_hope`
+--
+
+CREATE TABLE `craft_hope` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `craft_id` varchar(255) NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `craft_hope`
+--
+
+INSERT INTO `craft_hope` (`id`, `name`, `craft_id`, `price`, `image`, `description`) VALUES
+(1, 'doll', '190', '100', 'image', '200');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_payment`
+--
+
+CREATE TABLE `customer_payment` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `bank` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ac_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `total_amt` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `customer_payment`
+--
+
+INSERT INTO `customer_payment` (`id`, `name`, `bank`, `phone`, `ac_no`, `total_amt`, `order_id`, `uid`) VALUES
+(31, 'tddtd', 'cgh', '255', '1472583698', '70.0', '10', '58'),
+(32, 'Cvg', 'fgg', '556', '8852808085', '10.0', '11', '58'),
+(33, 'fvf', 'fvgg', '23', 'rtkok', 'fvgb', '12', '58'),
+(34, 'hh', 'cc', '23', 'rtkok', 'fvgb', '13', '58'),
+(35, 'qw', 'ww', '23', 'rtkok', 'fvgb', '14', '58');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customer_registration`
 --
 
@@ -77,7 +135,7 @@ CREATE TABLE `customer_registration` (
 
 INSERT INTO `customer_registration` (`id`, `username`, `email`, `phone`, `password`) VALUES
 (58, 'deepika', 'deepi@gmail.com', '9526843393', 'deepz'),
-(60, 'ggh', 'ffgg@gmail.com', '8952369852', 't');
+(60, 'sanvi', 'ffgg@gmail.com', '8952369852', 'mol');
 
 -- --------------------------------------------------------
 
@@ -91,17 +149,6 @@ CREATE TABLE `cust_cart_product` (
   `product_qty` varchar(255) NOT NULL,
   `uid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cust_cart_product`
---
-
-INSERT INTO `cust_cart_product` (`id`, `productid`, `product_qty`, `uid`) VALUES
-(238, '100', '1', '58'),
-(239, '103', '5', ''),
-(240, '101', '2', '58'),
-(241, '102', '5', '58'),
-(242, '104', '2', '58');
 
 -- --------------------------------------------------------
 
@@ -122,8 +169,7 @@ CREATE TABLE `Hope_Admin_Registration` (
 --
 
 INSERT INTO `Hope_Admin_Registration` (`id`, `username`, `email`, `phone`, `password`) VALUES
-(1, 'hope', 'hope@gmail.com', '8956231478', 'hope'),
-(2, 'adminhope', 'g@gmail.com', '8529632356', 'vv');
+(3, 'hop', 'hg@gmail.com', '9638521478', 'hp');
 
 -- --------------------------------------------------------
 
@@ -192,9 +238,7 @@ CREATE TABLE `merchant_add_product` (
 INSERT INTO `merchant_add_product` (`id`, `productid`, `productname`, `productprice`, `image`, `stock`) VALUES
 (198, '100', ' Shampoo ', '70', 'https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/image_picker4194974091571487974.jpg', '200'),
 (200, '103', ' Lays ', '10', 'https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/image_picker8684951291057439233.jpg', '100'),
-(201, '101', ' Note Book ', '50', 'https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/image_picker1141095624805125259.jpg', '200'),
-(204, '102', ' Biscut ', '10', 'https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/image_picker5664061332707791337.jpg', '100'),
-(205, '104', ' Hand Wash ', '70', 'https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/image_picker9014511477397623209.jpg', '200');
+(201, '101', ' Note Book ', '50', 'https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/image_picker1141095624805125259.jpg', '200');
 
 -- --------------------------------------------------------
 
@@ -229,6 +273,43 @@ CREATE TABLE `merchant_registration` (
 
 INSERT INTO `merchant_registration` (`id`, `username`, `email`, `phone`, `password`) VALUES
 (48, 'abc', 'cc@gmail.com', '8956231478', 'cc');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items_tb`
+--
+
+CREATE TABLE `order_items_tb` (
+  `id` int(255) NOT NULL,
+  `productid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `product_qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_tb`
+--
+
+CREATE TABLE `order_tb` (
+  `order_id` int(255) NOT NULL,
+  `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_date` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `total_amt` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `order_tb`
+--
+
+INSERT INTO `order_tb` (`order_id`, `uid`, `order_date`, `total_amt`) VALUES
+(10, '58', '11/02/2023', '70.0'),
+(11, '58', '11/02/2023', '10.0'),
+(12, '58', '11/02/2023', 'fvgb'),
+(13, '58', '11/02/2023', 'fvgb'),
+(14, '58', '11/02/2023', 'fvgb');
 
 -- --------------------------------------------------------
 
@@ -336,6 +417,27 @@ INSERT INTO `registered` (`id`, `username`, `email`, `phone`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sock_check`
+--
+
+CREATE TABLE `sock_check` (
+  `id` int(255) NOT NULL,
+  `product_qty` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `stock` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `productid` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sock_check`
+--
+
+INSERT INTO `sock_check` (`id`, `product_qty`, `stock`, `productid`) VALUES
+(1, '2', '5', ''),
+(8, '5', '24', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student_list`
 --
 
@@ -412,15 +514,27 @@ INSERT INTO `user_reg` (`id`, `name`, `email`, `password`) VALUES
 --
 
 --
--- Indexes for table `AA`
---
-ALTER TABLE `AA`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `cartlast`
 --
 ALTER TABLE `cartlast`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cart_hope`
+--
+ALTER TABLE `cart_hope`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `craft_hope`
+--
+ALTER TABLE `craft_hope`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer_payment`
+--
+ALTER TABLE `customer_payment`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -478,6 +592,18 @@ ALTER TABLE `merchant_registration`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order_items_tb`
+--
+ALTER TABLE `order_items_tb`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_tb`
+--
+ALTER TABLE `order_tb`
+  ADD PRIMARY KEY (`order_id`);
+
+--
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
@@ -499,6 +625,12 @@ ALTER TABLE `Reg`
 -- Indexes for table `registered`
 --
 ALTER TABLE `registered`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sock_check`
+--
+ALTER TABLE `sock_check`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -524,16 +656,28 @@ ALTER TABLE `user_reg`
 --
 
 --
--- AUTO_INCREMENT for table `AA`
---
-ALTER TABLE `AA`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- AUTO_INCREMENT for table `cartlast`
 --
 ALTER TABLE `cartlast`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `cart_hope`
+--
+ALTER TABLE `cart_hope`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `craft_hope`
+--
+ALTER TABLE `craft_hope`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `customer_payment`
+--
+ALTER TABLE `customer_payment`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `customer_registration`
@@ -545,13 +689,13 @@ ALTER TABLE `customer_registration`
 -- AUTO_INCREMENT for table `cust_cart_product`
 --
 ALTER TABLE `cust_cart_product`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 
 --
 -- AUTO_INCREMENT for table `Hope_Admin_Registration`
 --
 ALTER TABLE `Hope_Admin_Registration`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `Hope_User_Registration`
@@ -575,7 +719,7 @@ ALTER TABLE `login2`
 -- AUTO_INCREMENT for table `merchant_add_product`
 --
 ALTER TABLE `merchant_add_product`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT for table `Merchant_Payment`
@@ -588,6 +732,18 @@ ALTER TABLE `Merchant_Payment`
 --
 ALTER TABLE `merchant_registration`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT for table `order_items_tb`
+--
+ALTER TABLE `order_items_tb`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_tb`
+--
+ALTER TABLE `order_tb`
+  MODIFY `order_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -612,6 +768,12 @@ ALTER TABLE `Reg`
 --
 ALTER TABLE `registered`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT for table `sock_check`
+--
+ALTER TABLE `sock_check`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `student_list`
