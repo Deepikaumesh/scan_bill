@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../About_Us.dart';
 import 'Customer_About_Us.dart';
 import 'Customer_Login.dart';
+import 'Customer_orders.dart';
 
 class Customer_Drawer extends StatelessWidget {
   @override
@@ -61,6 +62,22 @@ class Customer_Drawer extends StatelessWidget {
             color: Colors.blueGrey.shade900,
           ),
           title: Text("About",
+              style: GoogleFonts.prompt(
+                fontSize: 15,
+              )),
+        ),
+        ListTile(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => My_Orders()));
+          },
+          leading: Icon(
+            Icons.card_giftcard,
+            color: Colors.blueGrey.shade900,
+          ),
+          title: Text("My orders",
               style: GoogleFonts.prompt(
                 fontSize: 15,
               )),

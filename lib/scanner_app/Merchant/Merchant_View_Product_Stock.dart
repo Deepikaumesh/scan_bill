@@ -167,10 +167,10 @@ class _Merchant_View_Product_stockState extends State<Merchant_View_Product_stoc
                                         "Price : " +
                                             snapshot.data[index].productprice,
                                       ),
-                                      // Text(
-                                      //   "Productstock : " +
-                                      //       snapshot.data[index].stock,
-                                      // ),
+                                      Text(
+                                        "Productstock : " +
+                                            snapshot.data[index].stock,
+                                      ),
                                       // Text(
                                       //   "Productstock : " +
                                       //       StockCalculations
