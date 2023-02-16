@@ -66,11 +66,10 @@ $connection->set_charset("utf8");
           
             while($row1 = $result2->fetch_assoc()){
                 
-                $sql_order_items = "INSERT INTO  order_items_tb(productid,product_qty,order_id)  VALUES ('".$row1["productid"]."','".$row1["product_qty"]."','".$row1["oid"]."')";
-                if ( mysqli_query($connection, $sql_order_items))
-   {
-       
-   }
+                $sql_order_items = "INSERT INTO  order_items_tb(productid,product_qty,order_id,uid)  VALUES ('".$row1["productid"]."','".$row1["product_qty"]."','".$row["oid"]."',
+                '".$row1["uid"]."')";
+                 mysqli_query($connection, $sql_order_items);
+
                 
                 
             
