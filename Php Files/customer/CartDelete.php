@@ -6,45 +6,53 @@ $database = "id18377801_log";
 
 // Create connection
 $connection = mysqli_connect($servername, $username, $password, $database);
-   
+
 // Check connection
 if ($connection->connect_error) {
   die("Connection failed: " . $connection->connect_error);
 }
  $id=$_POST['id'];
- 
- print($id);
-  
- 
-   
-//$connection->query("DELETE FROM  cust_cart_product  WHERE(cust_cart_product.productid) IN (SELECT merchant_add_product.productid FROM merchant_add_product)");//original
+  $productid=$_POST['productid'];
+   $product_qty=$_POST['product_qty'];
+
+ print($id."-".$productid."-".$product_qty);
+
+// 		$connection->query("DELETE  FROM  cust_cart_product WHERE id=".$id) ;
+
+    $sql = "DELETE  FROM  cust_cart_product WHERE id=".$id ;
 
 
+    if ( mysqli_query($connection, $sql) ) {
 
-// $connection->query("DELETE FROM  cust_cart_product  WHERE(cust_cart_product.productid) IN (SELECT merchant_add_product.productid FROM merchant_add_product
+        $sql1 ="select stock from merchant_add_product WHERE productid = '".$productid."' ";
 
-// WHERE `cust_cart_product`.`id`=`172`)");
+          $s = mysqli_query($connection, $sql1) ;
+              $ss = mysqli_fetch_assoc($s);
 
-//$connection->query("delete from `cust_cart_product` WHERE `productid` in (select `productid` FROM `merchant_add_product` WHERE `cust_cart_product`.`id` =172");
+              $sq = "select product_qty from cust_cart_product productid = '".$productid."' ";
+               $sqq = mysqli_query($connection, $sq) ;
+                $sss = mysqli_fetch_assoc($s);
+
+         //$newqty =$ss["stock"] + $product_qty;
+
+         $newqty =$ss["stock"] + $sss["product_qty"];
+
+         $sql2 = "UPDATE merchant_add_product SET stock = '".$newqty."'  WHERE productid = '".$productid."'";
+
+         mysqli_query($connection, $sql2);
 
 
-   
+          $result["error"] = false;
+        $result["message"] = "Product deleted Successfully-".$ss["stock"]."-".$product_qty;
+		 echo json_encode($result);
+        mysqli_close($connection);
+    }
+    else{
+          $result["error"] = true;
+        $result["message"] = "Product not deleted";
 
- //$connection->query("DELETE FROM cust_cart_product INNER JOIN (merchant_add_product) ON (merchant_add_product.productid=cust_cart_product.productid) WHERE cust_cart_product.id=".$id);
-   //$connection->query("DELETE productid FROM  cust_cart_product IN (SELECT merchant_add_product.productid FROM merchant_add_product)WHERE cust_cart_product.id=".$id);
-    //  $connection->query("DELETE productid FROM cust_cart_product INNER JOIN (merchant_add_product) ON (cust_cart_product.productid=merchant_add_product.productid)");
-  //	$connection->query("DELETE FROM  merchant_add_product WHERE id=".$id);
-   //	$connection->query("DELETE  `productid` FROM  cust_cart_product WHERE `cust_cart_product`.`productid` = `merchant_add_product`.`productid`");	
+}
 
-//	$connection->query("DELETE FROM `cust_cart_product` WHERE `productid` in (SELECT `productid` FROM `merchant_add_product` WHERE cust_cart_product.id=".$id);
-
-//	$connection->query("DELETE  FROM  cust_cart_product WHERE `cust_cart_product`.`productid` = `merchant_add_product`.`productid`=".$id);
-
-	//$sql = "SELECT * FROM `cust_cart_product` JOIN `merchant_add_product` ON `cust_cart_product`.`productid` = `merchant_add_product`.`productid`"; //original
-	
-	$connection->query("DELETE  FROM  cust_cart_product WHERE id=".$id) ;
- 
-
-$result=array("success"=>'Successfully Deleted');
-echo json_encode($result);
+// $result=array("success"=>'Successfully Deleted');
+// echo json_encode($result);
 ?>
