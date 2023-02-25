@@ -1,3 +1,4 @@
+
 import 'package:ecommerce_scan_andbill_app/scanner_app/Scanner_main_way.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ var uid_user ='';
 
 
 final subTotal = 0;
+//var ip_address = '192.168.29.64';
 
 void main() {
   runApp(const MyApp());

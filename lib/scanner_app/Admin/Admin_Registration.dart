@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Customer_Registration extends StatefulWidget {
-  const Customer_Registration({Key? key}) : super(key: key);
+class Admin_Registration extends StatefulWidget {
+  const Admin_Registration({Key? key}) : super(key: key);
 
   @override
-  _Customer_RegistrationState createState() => _Customer_RegistrationState();
+  _Admin_RegistrationState createState() => _Admin_RegistrationState();
 }
 
-class _Customer_RegistrationState extends State<Customer_Registration> {
+class _Admin_RegistrationState extends State<Admin_Registration> {
   TextEditingController _username = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _phone = TextEditingController();
@@ -271,7 +271,7 @@ class _Customer_RegistrationState extends State<Customer_Registration> {
                                       onPressed: () {
                                         if (_formkey.currentState!.validate()) {
                                           setState(() {
-                                            RegistrationUser();
+                                            Mer_RegistrationUser();
                                           });
                                           // RegistrationUser();
                                           print("Successful");
@@ -308,9 +308,10 @@ class _Customer_RegistrationState extends State<Customer_Registration> {
     );
   }
 
-  Future RegistrationUser() async {
+  Future Mer_RegistrationUser() async {
     var APIURL =
-        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Customer/Registrationn.php";
+        "https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/Mer_Registrationn.php";
+
 
     //json maping user entered details
     Map mapeddate = {
@@ -344,5 +345,7 @@ class _Customer_RegistrationState extends State<Customer_Registration> {
         message = responseMessage;
       });
     }
+
+    // print("DATA: ${data}");
   }
 }

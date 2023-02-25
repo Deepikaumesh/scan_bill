@@ -1,23 +1,24 @@
 import 'dart:convert';
 
+import 'package:ecommerce_scan_andbill_app/scanner_app/Admin/Admin_Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import '../../main.dart';
-import 'Merchant_Dashboard.dart';
-import 'Merchant_Registration.dart';
+import 'Admin_Registration.dart';
 
 
 
-class Merchant_Login extends StatefulWidget {
-  const Merchant_Login({Key? key}) : super(key: key);
+
+class Admin_Login extends StatefulWidget {
+  const Admin_Login({Key? key}) : super(key: key);
 
   @override
-  _Merchant_LoginState createState() => _Merchant_LoginState();
+  _Admin_LoginState createState() => _Admin_LoginState();
 }
 
-class _Merchant_LoginState extends State<Merchant_Login> {
+class _Admin_LoginState extends State<Admin_Login> {
   TextEditingController Merchant_user = TextEditingController();
   TextEditingController Merchant_pass = TextEditingController();
   final GlobalKey<FormState> Merchant_formkey = GlobalKey<FormState>();
@@ -160,7 +161,7 @@ class _Merchant_LoginState extends State<Merchant_Login> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Merchant_Registration()));
+                                                  Admin_Registration()));
                                     },
                                     child: Text(
                                       //  'Forgot Password',
@@ -219,7 +220,7 @@ Future Merchant_Login() async {
     await _sharedPrefs.setBool(Merchant_Key, true);
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Merchant_Dashboard()));
+        context, MaterialPageRoute(builder: (context) => Admin_Dashboard()));
     print("username:");
   } else {
     final snackBar = SnackBar(
