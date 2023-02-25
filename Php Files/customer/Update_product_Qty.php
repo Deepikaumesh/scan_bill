@@ -23,45 +23,83 @@ if ($connection->connect_error) {
 
 
 	 	$id = $_POST['id'];
-// //	$productid = $_POST['productid'];
+	$productid = $_POST['productid'];
 	$product_qty = $_POST['product_qty'];
+	$uid = $_POST['uid'];
 
 
 
-  //$productid=mysqli_real_escape_string($connection,$productid);
-     $product_qty=mysqli_real_escape_string($connection,$product_qty);
+                $sql0 ="select product_qty from cust_cart_product WHERE productid = '".$productid."' AND uid = '".$uid."' ";
+        $sq0 = mysqli_query($connection, $sql0) ;
+              $sqs01 = mysqli_fetch_assoc($sq0);
 
-  
-     
-     	
-// 		if($_FILES['image']['error'])
-// 	{
-// 	$file_name1 = $_FILES['image']['name'];
-//  $file_tmp =$_FILES['image']['tmp_name'];
-//   move_uploaded_file($file_tmp,"image_uploaded/".$file_name1);
- 
-//   $file_name2="https://anthracitic-pecks.000webhostapp.com/scan_copy/Merchant/image_uploaded/".$file_name1;
-  
-//  $connection->query("UPDATE `cust_cart_product` SET image= '$file_name2' WHERE id = '$id'");
- 
-//	}
-
-
-// 		$connection->query("UPDATE  `cust_cart_product` SET productid='".$productid."', product_qty='".$product_qty."',  WHERE id=". $id);
-
-	$connection->query("UPDATE  cust_cart_product SET product_qty='".$product_qty."' WHERE id=".$id);
+              	$nwqty =$product_qty - $sqs01["product_qty"];
 
 
 
 
-	
+	$sql ="UPDATE  cust_cart_product SET product_qty='".$product_qty."' WHERE id=".$id;
 
 
 
-    	
-	$result = array();
-	$result['msg'] = "Successfully Edited..";
-	echo json_encode($result);
+
+
+
+  if ( mysqli_query($connection, $sql) ) {
+
+        $sql1 ="select stock from merchant_add_product WHERE productid = '".$productid."' ";
+
+          $s = mysqli_query($connection, $sql1) ;
+              $ss = mysqli_fetch_assoc($s);
+
+
+        //         $sql0 ="select product_qty from cust_cart_product WHERE productid = '".$productid."' ";
+        // $sq0 = mysqli_query($connection, $sql0) ;
+        //       $sqs01 = mysqli_fetch_assoc($sq0);
+
+
+
+
+        $newqty =$ss["stock"] -$nwqty;
+
+        //$newqty =$ss["stock"] -$product_qty;
+
+         $sql2 = "UPDATE merchant_add_product SET stock = '".$newqty."'  WHERE productid = '".$productid."'";
+
+
+
+         mysqli_query($connection, $sql2);
+
+
+
+          $result["error"] = false;
+        //$result["message"] = "Product updated Successfully-";
+         $result["message"] = "Product updated Successfully-".$ss["stock"]."-".$product_qty;
+		 echo json_encode($result);
+        mysqli_close($connection);
+    }
+    else{
+          $result["error"] = true;
+        $result["message"] = "Product not Added";
+
+}
+
+
+
+
+// 	$connection->query("UPDATE  cust_cart_product SET product_qty='".$product_qty."' WHERE id=".$id);
+
+
+
+
+
+
+
+
+
+// 	$result = array();
+// 	$result['msg'] = "Successfully Edited..";
+// 	echo json_encode($result);
 
 ?>
 
